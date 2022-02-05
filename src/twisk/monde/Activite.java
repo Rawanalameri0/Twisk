@@ -23,7 +23,7 @@ public class Activite extends Etape{
 
     @Override
     public String toString() {
-        return  this.nom +": "+temps+"s "+ "± "+ ecartTemps+"s";
+        return "Etape "+this.getNumero()+":"+ this.nom +": "+temps+"s "+ "± "+ ecartTemps+"s";
     }
 
 }
