@@ -8,9 +8,9 @@ public class Monde implements Iterable<Etape>{
     private SasEntree sasEntree;
 
     public  Monde(){
-        sasSortie = new SasSortie();
-        sasEntree= new SasEntree();
         gestEtapes=new GestionnaireEtapes();
+        sasEntree= new SasEntree();
+        sasSortie = new SasSortie();
     }
 
     public void aCommeEntree(Etape... etapes){

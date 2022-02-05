@@ -49,10 +49,13 @@ class MondeTest {
         assertEquals(3,monde.nbGuichets());
     }
 
+    //ce teste est aussi
     @Test
     void iterator() {
+        int i=0;
         for (Etape e: monde){
-            //System.out.println(e.toString());
+            assertEquals(i,e.getNumero());
+            i++;
         }
         // on a bien un monde qui est iterable
     }

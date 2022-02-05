@@ -12,7 +12,6 @@ public class Simulation {
         for (Etape e:monde){
             System.out.println(e.toString());
         }
-
         System.out.println(monde.toString());
     }
 
