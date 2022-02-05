@@ -49,7 +49,7 @@ class MondeTest {
         assertEquals(3,monde.nbGuichets());
     }
 
-    //ce teste est aussi
+    //ce teste est aussi pour la fonction getNumero() de Etape
     @Test
     void iterator() {
         int i=0;
@@ -58,5 +58,12 @@ class MondeTest {
             i++;
         }
         // on a bien un monde qui est iterable
+    }
+
+    @Test
+    void testNumGuichet(){
+        assertEquals(1,fileTob.getNumero());
+        assertEquals(2,fileBalon.getNumero());
+        assertEquals(3,fileWC.getNumero());
     }
 }
