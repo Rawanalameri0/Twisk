@@ -19,11 +19,11 @@ class EtapeTest {
 
     @Test
     void ajouterSuccesseur() {
-        FilTicket.ajouterSuccesseur(Tickets,FileCine,Cine);
-        Tickets.ajouterSuccesseur(FileCine,Cine);
+        FilTicket.ajouterSuccesseur(Tickets);
+        Tickets.ajouterSuccesseur(FileCine);
         FileCine.ajouterSuccesseur(Cine);
-        assertEquals(3,FilTicket.nbSuccesseurs());
-        assertEquals(2,Tickets.nbSuccesseurs());
+        assertEquals(1,FilTicket.nbSuccesseurs());
+        assertEquals(1,Tickets.nbSuccesseurs());
         assertEquals(1,FileCine.nbSuccesseurs());
         assertEquals(0,Cine.nbSuccesseurs());
     }
