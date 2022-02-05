@@ -42,9 +42,11 @@ public class ClientTwisk {
         Simulation sim = new Simulation();
         Monde monde1 = new Monde();
         initialiserMonde1(monde1);
+        System.out.println("Parc: ");
         sim.simuler(monde1);
         Monde monde2 = new Monde();
         initialiserMonde2(monde2);
+        System.out.println("Cinema: ");
         sim.simuler(monde2);
 
     }
