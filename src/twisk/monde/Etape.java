@@ -15,6 +15,10 @@ public abstract class Etape implements Iterable<Etape>{
         this.gestSucc.ajouter(e);
     }
 
+    public int nbSuccesseurs(){
+        return this.gestSucc.nbEtapes();
+    }
+
     public boolean estUneActivite(){
         return  false;
     }
