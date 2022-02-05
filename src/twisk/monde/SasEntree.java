@@ -5,4 +5,8 @@ public class SasEntree extends Activite{
         super("");
     }
 
+    @Override
+    public String toString() {
+        return gestSucc.toString();
+    }
 }

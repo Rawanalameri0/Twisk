@@ -21,6 +21,14 @@ public class Monde implements Iterable<Etape>{
         this.sasSortie.ajouterSuccesseur(etapes);
     }
 
+    public int NbSorties(){
+        return sasSortie.nbSuccesseurs();
+    }
+
+    public int NbEntrees(){
+        return sasEntree.nbSuccesseurs();
+    }
+
     public void ajouter(Etape... etapes){
         this.gestEtapes.ajouter(etapes);
     }
@@ -46,6 +54,8 @@ public class Monde implements Iterable<Etape>{
 
     @Override
     public String toString() {
-        return "Monde{"+ gestEtapes.toString()+"\n" +"Entrees: "+sasEntree.toString()+"\n" +"Sorties: "+sasSortie.toString();
+        return "Monde: " + gestEtapes.toString() + "\n"
+                +"Entrée(s) : "+ sasEntree.toString() +"\n"
+                +"Sortie(s) : " +sasSortie.toString() +"\n";
     }
 }

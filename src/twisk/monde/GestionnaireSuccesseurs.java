@@ -26,7 +26,7 @@ public class GestionnaireSuccesseurs implements Iterable<Etape> {
     }
 
     public String toString(){
-        return "Successeurs: "+this.etapes;
+        return ""+this.etapes;
     }
 
 }
