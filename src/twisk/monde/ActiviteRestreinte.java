@@ -12,6 +12,6 @@ public class ActiviteRestreinte extends Activite{
 
     @Override
     public String toString(){
-        return this.nom +": "+this.temps+"s"+ "±"+ ecartTemps;
+        return super.toString();
     }
 }
