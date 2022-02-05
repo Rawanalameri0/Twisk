@@ -54,8 +54,7 @@ public class Monde implements Iterable<Etape>{
 
     @Override
     public String toString() {
-        return "Monde: " + gestEtapes.toString() + "\n"
-                +"Entrée(s) : "+ sasEntree.toString() +"\n"
+        return "Entrée(s) : "+ sasEntree.toString() +"\n"
                 +"Sortie(s) : " +sasSortie.toString() +"\n";
     }
 }
