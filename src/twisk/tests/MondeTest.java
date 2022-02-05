@@ -54,7 +54,9 @@ class MondeTest {
     void iterator() {
         int i=0;
         for (Etape e: monde){
-            assertEquals(i,e.getNumero());
+            if (e.estUneActivite()){
+                assertEquals(i,e.getNumero());
+            }
             i++;
         }
         // on a bien un monde qui est iterable

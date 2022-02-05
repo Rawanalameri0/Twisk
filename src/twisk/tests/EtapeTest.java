@@ -2,6 +2,7 @@ package twisk.tests;
 
 import org.junit.jupiter.api.*;
 import twisk.monde.Activite;
+import twisk.monde.ActiviteRestreinte;
 import twisk.monde.Etape;
 import twisk.monde.Guichet;
 
@@ -12,7 +13,7 @@ class EtapeTest {
     @BeforeEach
     void setUp() {
         FilTicket= new Guichet("File Ticket",4);
-        Tickets =new Activite("Achat Tickets",8,2);
+        Tickets =new ActiviteRestreinte("Achat Tickets",8,2);
         FileCine=new Guichet("File Cinema",2);
         Cine=new Activite("Cinema",7200,60);
     }
