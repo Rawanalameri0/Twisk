@@ -6,8 +6,7 @@ import java.util.Iterator;
 public abstract class Etape implements Iterable<Etape>{
     protected String nom;
     protected GestionnaireSuccesseurs gestSucc;
-    private FabriqueNumero fb= FabriqueNumero.getInstance();
-    protected int numero= fb.getNumeroEtape();
+    protected int numero= FabriqueNumero.getInstance().getNumeroEtape();
 
     public Etape(String nom){
         this.nom=nom;
@@ -16,10 +15,6 @@ public abstract class Etape implements Iterable<Etape>{
 
     public int getNumero() {
         return numero;
-    }
-
-    public void reset(){
-        fb.reset();
     }
 
     public void ajouterSuccesseur(Etape... e){

@@ -35,13 +35,8 @@ class MondeTest {
     }
 
     @Test
-    void aCommeSortie() {
-        assertEquals(3,monde.NbSorties());
-    }
-
-    @Test
     void ajouter() {
-        assertEquals(7,monde.nbEtapes());
+        assertEquals(9,monde.nbEtapes());
     }
 
     @Test
@@ -53,9 +48,14 @@ class MondeTest {
     @Test
     void iterator() {
         int i=0;
+        int cptg=1;
         for (Etape e: monde){
             if (e.estUneActivite()){
                 assertEquals(i,e.getNumero());
+            }
+            if (e.estUnGuichet()){
+                assertEquals(cptg,e.getNumero());
+                cptg++;
             }
             i++;
         }

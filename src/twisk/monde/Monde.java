@@ -23,11 +23,7 @@ public class Monde implements Iterable<Etape>{
         for (Etape e:etapes){
             e.ajouterSuccesseur(sasSortie);
         }
-        this.sasSortie.ajouterSuccesseur(etapes);
-    }
 
-    public int NbSorties(){
-        return sasSortie.nbSuccesseurs();
     }
 
     public int NbEntrees(){
