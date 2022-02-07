@@ -43,6 +43,9 @@ public abstract class Etape implements Iterable<Etape>{
         return gestSucc.iterator();
     }
 
-    public abstract String toString();
+    public String toString(){
+
+        return this.nom +" :"+this.gestSucc.toString();
+    }
 
 }

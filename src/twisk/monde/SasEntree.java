@@ -2,12 +2,12 @@ package twisk.monde;
 
 public class SasEntree extends Activite{
     public SasEntree(){
-        super("");
+        super("Entrée(s)" );
         this.reset();
     }
 
     @Override
     public String toString() {
-        return gestSucc.toString();
+        return super.toString();
     }
 }

@@ -1,5 +1,4 @@
 package twisk.monde;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -26,7 +25,17 @@ public class GestionnaireSuccesseurs implements Iterable<Etape> {
     }
 
     public String toString(){
-        return ""+this.etapes;
+        StringBuilder succ=new StringBuilder();
+        String s;
+        for (int i=0;i<etapes.size();i++){
+            if (i==this.nbEtapes()-1){
+                succ.append(etapes.get(i).nom);
+            }else {
+                succ.append(etapes.get(i).nom+"-");
+            }
+        }
+        s=new String(succ);
+        return this.nbEtapes()+" successeur "+"-"+s;
     }
 
 }

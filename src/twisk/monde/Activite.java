@@ -21,9 +21,4 @@ public class Activite extends Etape{
         return  true;
     }
 
-    @Override
-    public String toString() {
-        return "Etape "+this.getNumero()+":"+ this.nom +": "+temps+"s "+ "± "+ ecartTemps+"s";
-    }
-
 }

@@ -27,7 +27,7 @@ public class ClientTwisk {
         FilTicket= new Guichet("File Ticket",4);
         Tickets =new Activite("Achat Tickets",8,2);
         FileCine=new Guichet("File Cinema",2);
-        Cine=new Activite("Cinema",7200,60);
+        Cine=new Activite("Cinema");
         FilTicket.ajouterSuccesseur(Tickets);
         Tickets.ajouterSuccesseur(FileCine);
         FileCine.ajouterSuccesseur(Cine);

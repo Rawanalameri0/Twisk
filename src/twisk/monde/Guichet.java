@@ -27,8 +27,4 @@ public class Guichet extends Etape{
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "Guichet "+this.getNumero()+":"+this.nom+": "+nbjetons+" jetons";
-    }
 }

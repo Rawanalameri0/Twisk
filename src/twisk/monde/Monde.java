@@ -54,7 +54,11 @@ public class Monde implements Iterable<Etape>{
 
     @Override
     public String toString() {
-        return "Entrée(s) : "+ sasEntree.toString() +"\n"
-                +"Sortie(s) : " +sasSortie.toString() +"\n";
+        StringBuilder s=new StringBuilder();
+        for (Etape e:gestEtapes){
+            s.append(e.toString()+"\n");
+        }
+        return sasEntree.toString() +"\n"
+                +sasSortie.toString() +"\n"+new String(s);
     }
 }
