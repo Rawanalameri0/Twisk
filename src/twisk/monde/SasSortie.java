@@ -3,7 +3,7 @@ package twisk.monde;
 public class SasSortie extends Activite{
 
     public SasSortie(){
-        super("Sortie(s)");
+        super("sortie");
         this.reset();
     }
 
