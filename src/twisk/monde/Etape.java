@@ -43,4 +43,15 @@ public abstract class Etape implements Iterable<Etape>{
         return this.nom +" :"+this.gestSucc.toString();
     }
 
+    public String getNom() {
+        return nom;
+    }
+
+    public String toC(){
+        return null;
+    }
+
+    public int getNumeroGuichet(){
+        return 0;
+    }
 }

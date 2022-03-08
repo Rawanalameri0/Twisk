@@ -14,4 +14,10 @@ public class ActiviteRestreinte extends Activite{
     public String toString(){
         return super.toString();
     }
+
+    @Override
+    public String toC(){
+        return super.toC();
+    }
+
 }

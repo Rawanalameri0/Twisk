@@ -38,4 +38,7 @@ public class GestionnaireSuccesseurs implements Iterable<Etape> {
         return this.nbEtapes()+" successeur "+"-"+s;
     }
 
+    public String getSuccesseur(){
+        return etapes.get(0).nom;
+    }
 }

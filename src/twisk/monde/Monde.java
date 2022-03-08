@@ -61,4 +61,19 @@ public class Monde implements Iterable<Etape>{
         }
         return new String(s);
     }
+
+    public String toC(){
+        StringBuilder s=new StringBuilder();
+        s.append("#include <stdlib.h>\n #include <stdio.h>\n #include <unistd.h>\n #include <stdbool.h>\n");
+        for (Etape e:gestEtapes){
+            s.append("#define "+e.nom+""+e.getNumero());
+            if (e.estUnGuichet()){
+                s.append("#define NbSemaGuichet"+e.getNumeroGuichet()+""+e.getNumeroGuichet());
+            }
+        }
+        s.append("\n void simulation(int ids){");
+        s.append("\n"+sasEntree.toC());
+        s.append("\n}\n");
+        return new String(s);
+    }
 }

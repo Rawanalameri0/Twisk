@@ -21,4 +21,13 @@ public class Activite extends Etape{
         return  true;
     }
 
+    @Override
+    public String toC(){
+        return "\n tranfert("+this.nom+","+this.gestSucc.getSuccesseur()+");\n" +
+                getDelai();
+    }
+
+    public String getDelai(){
+        return "delai("+temps+","+ecartTemps+");";
+    }
 }
