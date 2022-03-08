@@ -64,15 +64,15 @@ public class Monde implements Iterable<Etape>{
 
     public String toC(){
         StringBuilder s=new StringBuilder();
-        s.append("#include <stdlib.h>\n #include <stdio.h>\n #include <unistd.h>\n #include <stdbool.h>\n");
+        s.append("#include <stdlib.h>\n#include <stdio.h>\n#include <unistd.h>\n#include <stdbool.h>\n");
         for (Etape e:gestEtapes){
-            s.append("#define "+e.nom+""+e.getNumero());
+            s.append("#define "+e.nom+" "+e.getNumero()+"\n");
             if (e.estUnGuichet()){
-                s.append("#define NbSemaGuichet"+e.getNumeroGuichet()+""+e.getNumeroGuichet());
+                s.append("#define NbSemaGuichet"+e.getNumeroGuichet()+" "+e.getNumeroGuichet()+"\n");
             }
         }
-        s.append("\n void simulation(int ids){");
-        s.append("\n"+sasEntree.toC());
+        s.append("\nvoid simulation(int ids){");
+        s.append(sasEntree.toC());
         s.append("\n}\n");
         return new String(s);
     }

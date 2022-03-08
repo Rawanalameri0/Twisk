@@ -3,7 +3,7 @@ package twisk.monde;
 public class SasSortie extends Activite{
 
     public SasSortie(){
-        super("sortie");
+        super("sasSortie");
     }
 
     @Override
@@ -11,8 +11,4 @@ public class SasSortie extends Activite{
         return super.toString();
     }
 
-    @Override
-    public String getNom(){
-        return "sasSortie";
-    }
 }

@@ -23,7 +23,7 @@ public class Activite extends Etape{
 
     @Override
     public String toC(){
-        return "\n tranfert("+this.nom+","+this.gestSucc.getSuccesseur()+");\n" +
+        return "\ntranfert("+this.nom+","+this.gestSucc.getSuccesseur()+");\n" +
                 getDelai();
     }
 
