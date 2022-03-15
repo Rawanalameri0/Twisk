@@ -14,7 +14,7 @@ public class SasEntree extends Activite{
     public String toC(){
         return "\nentrer("+this.getNom()+");\n" +
                 "delai(4,2);\n" +
-                "transfert("+this.getNom()+","+this.gestSucc.getSuccesseur()+");\n" +
-                "delai(4,2);";
+                "transfert("+this.getNom()+","+this.gestSucc.getNomSuccesseur()+");\n"+
+                this.gestSucc.getSuccesseur().toC();
     }
 }

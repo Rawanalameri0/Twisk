@@ -47,9 +47,7 @@ public abstract class Etape implements Iterable<Etape>{
         return nom;
     }
 
-    public String toC(){
-        return null;
-    }
+    public abstract String toC();
 
     public int getNumeroGuichet(){
         return 0;

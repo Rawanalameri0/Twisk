@@ -15,7 +15,7 @@ public class ActiviteRestreinte extends Activite{
         return super.toString();
     }
 
-    @Override
+
     public String toC(){
         return super.toC();
     }

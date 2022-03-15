@@ -26,7 +26,6 @@ public class Guichet extends Etape{
         return true;
     }
 
-    @Override
     public String toC(){
         return "\nP(ids,"+this.NameSemaphore()+");\n" +
                 "transfert("+this.nom+","+this.gestSucc.getSuccesseur()+");\n" +
