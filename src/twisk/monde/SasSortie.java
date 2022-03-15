@@ -11,4 +11,9 @@ public class SasSortie extends Activite{
         return super.toString();
     }
 
+    @Override
+    public String toC(){
+        return "";
+    }
+
 }

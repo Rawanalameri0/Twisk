@@ -22,8 +22,8 @@ public class Activite extends Etape{
     }
 
     public String toC(){
-        return "\ntranfert("+this.nom+","+this.gestSucc.getSuccesseur()+");\n" +
-                getDelai();
+        return "\n"+getDelai()+"\n"+"tranfert("+this.nom+","+this.gestSucc.getNomSuccesseur()+");\n" +
+                this.gestSucc.getSuccesseur().toC();
     }
 
     public String getDelai(){
