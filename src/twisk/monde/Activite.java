@@ -22,7 +22,7 @@ public class Activite extends Etape{
     }
 
     public String toC(){
-        return "\n"+getDelai()+"\n"+"tranfert("+this.nom+","+this.gestSucc.getNomSuccesseur()+");\n" +
+        return "\n"+getDelai()+"\n"+"transfert("+this.nom+","+this.gestSucc.getNomSuccesseur()+");\n" +
                 this.gestSucc.getSuccesseur().toC();
     }
 

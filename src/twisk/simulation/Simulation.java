@@ -14,5 +14,6 @@ public class Simulation {
     public void simuler(Monde monde){
         System.out.println(monde.toC());
         kitc.creerFichier(monde.toC());
+        kitc.compiler();
     }
 }
