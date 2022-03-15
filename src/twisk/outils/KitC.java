@@ -1,8 +1,6 @@
 package twisk.outils;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -41,6 +39,26 @@ public class KitC {
             e.printStackTrace();
         }
 
+    }
+    public void compiler(){
+        String commande = "gcc -Wall -fPIC -c /tmp/twisk/client.c -o /tmp/twisk/client.o";
+        Runtime runtime = Runtime.getRuntime();
+        try {
+            Process p = runtime.exec(commande);
+            // récupération des messages sur la sortie standard et la sortie d’erreur de la commande exécutée
+            // à reprendre éventuellement et à adapter à votre code
+            BufferedReader output = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            BufferedReader error = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+            String ligne ;
+            while ((ligne = output.readLine()) != null) {
+                System.out.println(ligne);
+            }
+            while ((ligne = error.readLine()) != null) {
+                System.out.println(ligne);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
