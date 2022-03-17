@@ -16,6 +16,7 @@ public class Simulation {
         kitc.creerFichier(monde.toC());
         kitc.compiler();
         kitc.construireLibrairie();
+        System.load("/tmp/twisk/libTwisk.so");
     }
     public native int[] start_simulation(int nbEtapes,int nbGuichets,int nbClients,int[] tabJetonsServices);
     public native int[] ou_sont_les_clients(int nbEtapes,int nbClients);
