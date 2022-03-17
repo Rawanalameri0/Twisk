@@ -18,7 +18,7 @@ public class KitC {
             // Ne déclenche pas d’erreur si le répertoire existe déjà
             Path directories = Files.createDirectories(Paths.get("/tmp/twisk"));
             // copie des deux fichiers programmeC.o et def.h depuis le projet sous /tmp/twisk
-            String[] liste = {"programmeC.o", "def.h"};
+            String[] liste = {"programmeC.o", "def.h", "codeNatif.o"};
             for (String nom : liste) {
                 Path source = Paths.get(getClass().getResource("/codeC/"+nom).getPath());
                 Path newdir = Paths.get("/tmp/twisk/");
@@ -63,7 +63,7 @@ public class KitC {
     }
 
     public void construireLibrairie() {
-        String commande = "gcc -shared /tmp/twisk/programmeC.o /tmp/twisk/client.o -o /tmp/twisk/libTwisk.so";
+        String commande = "gcc -shared /tmp/twisk/programmeC.o /tmp/twisk/codeNatif.o /tmp/twisk/client.o -o /tmp/twisk/libTwisk.so";
         Runtime runtime = Runtime.getRuntime();
         try {
             Process p = runtime.exec(commande);

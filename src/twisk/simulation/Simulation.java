@@ -15,8 +15,9 @@ public class Simulation {
         System.out.println(monde.toC());
         kitc.creerFichier(monde.toC());
         kitc.compiler();
+        kitc.construireLibrairie();
     }
-    public native int[] start_simulation(int nbEtapes, int nbServices, int nbClients, int[] tabJetonsServices);
+    public native int[] start_simulation(int nbEtapes,int nbGuichets,int nbClients,int[] tabJetonsServices);
     public native int[] ou_sont_les_clients(int nbEtapes,int nbClients);
     public native void nettoyage();
 }
