@@ -52,4 +52,8 @@ public abstract class Etape implements Iterable<Etape>{
     public int getNumeroGuichet(){
         return 0;
     }
+
+    public int getNbjetons(){
+        return 0;
+    }
 }

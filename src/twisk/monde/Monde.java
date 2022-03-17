@@ -79,4 +79,20 @@ public class Monde implements Iterable<Etape> {
         s.append("\n}\n");
         return s.toString();
     }
+
+    public int[] getTabJetons(){
+        int[] res=new int[nbGuichets()];
+        int i=0;
+        for (Etape e:this){
+            if (e.estUnGuichet()){
+                res[i]=e.getNbjetons();
+                i++;
+            }
+        }
+        return res;
+    }
+
+    public String getNomDeEtape(int index){
+        return this.gestEtapes.getNomEtape(index);
+    }
 }

@@ -36,11 +36,21 @@ public class ClientTwisk {
         monde.aCommeSortie(Cine);
     }
 
+    public static void initMonde(Monde monde){
+        Etape Zoo,guichetZoo;
+        guichetZoo=new Guichet("GUICHET_ZOO",2);
+        Zoo=new Activite("ZOO",4,2);
+        monde.aCommeEntree(guichetZoo);
+        monde.aCommeSortie(Zoo);
+        guichetZoo.ajouterSuccesseur(Zoo);
+        monde.ajouter(guichetZoo,Zoo);
+    }
+
     public static void main(String[] args) {
         Simulation sim = new Simulation();
-        Monde monde1 = new Monde();
-        initialiserMonde2(monde1);
-        System.out.println("Parc: ");
-        sim.simuler(monde1);
+        Monde monde = new Monde();
+        initMonde(monde);
+        sim.setNbClients(5);
+        sim.simuler(monde);
     }
 }

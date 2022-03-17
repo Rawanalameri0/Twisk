@@ -36,4 +36,8 @@ public class Guichet extends Etape{
         return "NbSemaGuichet"+num;
     }
 
+    @Override
+    public int getNbjetons() {
+        return nbjetons;
+    }
 }
