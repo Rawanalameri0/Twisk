@@ -64,7 +64,10 @@ public class Monde implements Iterable<Etape> {
 
     public String toC() {
         StringBuilder s = new StringBuilder();
+
         s.append("#include <stdlib.h>\n#include <stdio.h>\n#include <unistd.h>\n#include <stdbool.h>\n#include \"def.h\"\n");
+        s.append("#include <stdlib.h>\n#include <stdio.h>\n#include <unistd.h>\n#include <stdbool.h>\n");
+
         for (Etape e : gestEtapes) {
             s.append("#define " + e.nom + " " + e.getNumero() + "\n");
             if (e.estUnGuichet()) {
