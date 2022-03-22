@@ -20,7 +20,7 @@ public class Simulation {
         kitc.construireLibrairie();
         System.load("/tmp/twisk/libTwisk.so");
         boolean end=false;
-        int nbClientEtape=0;
+        int nbClientEtape;
         int nbGuichets=monde.nbGuichets();
         int nbEtapes=monde.nbEtapes();
         int[] tabJetons=monde.getTabJetons();
@@ -29,16 +29,14 @@ public class Simulation {
         for (int i=0;i<nbClients;i++){
             System.out.printf(" "+tabClients[i]+" ");
         }
-        System.out.println("");
         System.out.println("\n");
         int[] EmplacementClient;
         while (!end){
             EmplacementClient=ou_sont_les_clients(nbEtapes,nbClients);
             for (int nbClient=0,etape=0;etape<nbEtapes;++nbClient,++etape){
                 nbClientEtape=EmplacementClient[nbClient];
-                System.out.println("\n");
-                System.out.printf("étape "+etape+"("+monde.getNomDeEtape(etape)+") "+EmplacementClient[nbClient]+" clients :");
-                for (int c=1;c<nbClientEtape;c++){
+                System.out.printf("\nétape "+etape+" ("+monde.getNomDeEtape(etape)+") "+EmplacementClient[nbClient]+" clients :");
+                for (int c=1;c<=nbClientEtape;c++){
                     System.out.printf(" "+EmplacementClient[nbClient+c]+" ");
                 }
                 nbClient+=nbClients;
@@ -46,6 +44,7 @@ public class Simulation {
                     end= nbClientEtape==nbClients;
                 }
             }
+            System.out.println("\n***************************************************************");
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
@@ -60,5 +59,41 @@ public class Simulation {
 
     public void setNbClients(int nbClients) {
         this.nbClients = nbClients;
+    }
+
+    public void FonctionMain(Monde monde){
+        boolean end=false;
+        int nbClientEtape=0;
+        int nbGuichets=monde.nbGuichets();
+        int nbEtapes=monde.nbEtapes();
+        int[] tabJetons=monde.getTabJetons();
+        int[] tabClients=start_simulation(nbEtapes,nbGuichets,nbClients,tabJetons);
+        System.out.printf("Les clients: ");
+        for (int i=0;i<nbClients;i++){
+            System.out.printf(" "+tabClients[i]+" ");
+        }
+        System.out.println("\n \n");
+        int[] EmplacementClient;
+        while (!end){
+            EmplacementClient=ou_sont_les_clients(nbEtapes,nbClients);
+            for (int nbClient=0,etape=0;etape<nbEtapes;++nbClient,++etape){
+                nbClientEtape=EmplacementClient[nbClient];
+                System.out.printf("\nétape "+etape+" ("+monde.getNomDeEtape(etape)+") "+EmplacementClient[nbClient]+" clients :");
+                for (int c=1;c<=nbClientEtape;c++){
+                    System.out.printf(" "+EmplacementClient[nbClient+c]+" ");
+                }
+                nbClient+=nbClients;
+                if (etape==1){
+                    end= nbClientEtape==nbClients;
+                }
+            }
+            System.out.println("***************************************************************");
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        nettoyage();
     }
 }

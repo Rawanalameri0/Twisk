@@ -27,7 +27,7 @@ public class Guichet extends Etape{
     }
 
     public String toC(){
-        return "\nP(ids,"+this.NameSemaphore()+");\n" +
+        return "\ndelai(4,2);\nP(ids,"+this.NameSemaphore()+");\n" +
                 "transfert("+this.nom+","+this.gestSucc.getNomSuccesseur()+");\n" +
                 "V(ids,"+this.NameSemaphore()+");\n" +this.gestSucc.getSuccesseur().toC();
     }
