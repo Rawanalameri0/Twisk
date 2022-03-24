@@ -50,11 +50,9 @@ class MondeTest {
         int i=0;
         int cptg=1;
         for (Etape e: monde){
-            if (e.estUneActivite()){
                 assertEquals(i,e.getNumero());
-            }
             if (e.estUnGuichet()){
-                assertEquals(cptg,e.getNumero());
+                assertEquals(cptg,e.getNumeroGuichet());
                 cptg++;
             }
             i++;
@@ -64,8 +62,8 @@ class MondeTest {
 
     @Test
     void testNumGuichet(){
-        assertEquals(1,fileTob.getNumero());
-        assertEquals(2,fileBalon.getNumero());
-        assertEquals(3,fileWC.getNumero());
+        assertEquals(1,fileTob.getNumeroGuichet());
+        assertEquals(2,fileBalon.getNumeroGuichet());
+        assertEquals(3,fileWC.getNumeroGuichet());
     }
 }

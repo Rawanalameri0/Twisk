@@ -61,6 +61,7 @@ public class Simulation {
                 e.printStackTrace();
             }
         }
+        System.out.println("");
         nettoyage();
     }
 }

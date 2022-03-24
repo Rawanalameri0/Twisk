@@ -26,9 +26,6 @@ public class ClientTwisk {
         initialiserMonde(monde);
         sim.setNbClients(5);
         sim.simuler(monde);
-
     }
 }
 
-//System.out.println(monde.toString());
-//System.out.println(monde.toC());

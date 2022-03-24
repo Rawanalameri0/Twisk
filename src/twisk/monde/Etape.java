@@ -8,6 +8,10 @@ public abstract class Etape implements Iterable<Etape>{
     protected GestionnaireSuccesseurs gestSucc;
     protected int numero= FabriqueNumero.getInstance().getNumeroEtape();
 
+    /**
+     * Constructeur de la super-classe
+     * @param nom le nom de l'étape
+     */
     public Etape(String nom){
         this.nom=nom;
         this.gestSucc= new GestionnaireSuccesseurs();

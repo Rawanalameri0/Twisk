@@ -12,9 +12,9 @@ public class SasEntree extends Activite{
 
     @Override
     public String toC(){
-        return "\nentrer("+this.getNom()+");\n" +
-                "delai(4,2);\n" +
-                "transfert("+this.getNom()+","+this.gestSucc.getNomSuccesseur()+");\n"+
+        return "\n   entrer(etape"+this.getNumero()+");\n" +
+                "   delai(4,2);\n" +
+                "   transfert(etape"+this.getNumero()+",etape"+this.gestSucc.getSuccesseur().getNumero()+");"+
                 this.gestSucc.getSuccesseur().toC();
     }
 }

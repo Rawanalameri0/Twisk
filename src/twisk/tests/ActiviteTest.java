@@ -22,7 +22,6 @@ class ActiviteTest {
         a = new ActiviteRestreinte("Toboggan");
         s=new SasSortie();
         activite.ajouterSuccesseur(s);
-
     }
 
     @Test
@@ -36,8 +35,4 @@ class ActiviteTest {
                 "transfert(Balonçoire,sasSortie);\n";
        assertEquals(s,activite.toC());
     }
-
-
-
-
 }
