@@ -6,12 +6,21 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
-
+/**
+ * Classe KitC
+ * @author IKHRICHI SOUMAYA AL-AMERI RAWAN
+ */
 public class KitC {
+    /**
+     * La constructeur de KitC
+     */
     public KitC(){
 
     }
 
+    /**
+     * Création de l'environement sous /tmp
+     */
     public void creerEnvironement(){
         try {
             // création du répertoire twisk sous /tmp.
@@ -32,6 +41,10 @@ public class KitC {
         }
     }
 
+    /**
+     * Création des fichiers dans tmp/twisk
+     * @param codeC un string du code présent dans le monde
+     */
     public void creerFichier(String codeC) {
         File file = new File("/tmp/twisk/client.c");
         try {
@@ -43,6 +56,10 @@ public class KitC {
         }
 
     }
+
+    /**
+     * Compliation d'un fichier C
+     */
     public void compiler(){
         String commande = "gcc -Wall -fPIC -c /tmp/twisk/client.c -o /tmp/twisk/client.o";
         Runtime runtime = Runtime.getRuntime();
@@ -65,6 +82,9 @@ public class KitC {
         }
     }
 
+    /**
+     * Consrtuction de la librairie en utlisant la execution de la commande
+     */
     public void construireLibrairie() {
         String commande = "gcc -shared /tmp/twisk/programmeC.o /tmp/twisk/codeNatif.o /tmp/twisk/client.o -o /tmp/twisk/libTwisk.so";
         Runtime runtime = Runtime.getRuntime();
@@ -86,6 +106,13 @@ public class KitC {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Copier les fichiers de ressources dans l'archive jar
+     * @param source un fichier source
+     * @param dest un fichier destination
+     * @throws IOException s'il y a un probléme
+     */
     private void copier(InputStream source, File dest) throws IOException {
         InputStream sourceFile = source;
         OutputStream destinationFile = new FileOutputStream(dest) ;
