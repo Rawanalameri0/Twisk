@@ -7,10 +7,10 @@ public class ClientTwisk {
 
     public static void initialiserMonde(Monde monde){
         Etape Tickets,Cine,FileCafet,Cafet;
-        FileCafet=new Guichet("FileCafet",4);
-        Cafet=new ActiviteRestreinte("Cafeteria",6,3);
+        FileCafet=new Guichet("File Cafet",4);
+        Cafet=new ActiviteRestreinte("Caféteria",6,3);
         Tickets =new Guichet("Tickets",2);
-        Cine=new Activite("Cinema");
+        Cine=new Activite("Cinéma");
         FileCafet.ajouterSuccesseur(Cafet);
         Cafet.ajouterSuccesseur(Tickets);
         Tickets.ajouterSuccesseur(Cine);

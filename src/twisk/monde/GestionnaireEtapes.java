@@ -54,6 +54,7 @@ public class GestionnaireEtapes implements Iterable<Etape>{
      * @return le nom de l'etape correspondant à l'index donné en paramètre
      */
     public String getNomEtape(int index){
-        return this.etapes.get(index).getNom();
+        return this.etapes.get(index).NameEtape();
     }
+
 }

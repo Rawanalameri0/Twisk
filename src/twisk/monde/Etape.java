@@ -75,7 +75,7 @@ public abstract class Etape implements Iterable<Etape>{
     }
 
     /**
-     * @return le nom de l'étape
+     * @return le nom de l'étape corrigé
      */
     public String getNom() {
         return ValiderLeNom(this.nom);
@@ -100,14 +100,16 @@ public abstract class Etape implements Iterable<Etape>{
         return 0;
     }
 
+    /**
+     * elimine les caractères spéciaux
+     * @param nom le nom de l'étape
+     * @return le nom après la correction
+     */
     public String ValiderLeNom(String nom){
-        nom=nom.toLowerCase(Locale.ROOT);
-        nom=nom.replaceAll(" ","_");
+        nom=nom.replaceAll("[\\s\\p{Punct}]","_");
         nom=nom.replaceAll("é","e");
         nom=nom.replaceAll("è","e");
-        nom=nom.replaceAll("@","a");
         nom=nom.replaceAll("ù","u");
-        nom=nom.replaceAll("'","_");
         nom=nom.replaceAll("ê","e");
         nom=nom.replaceAll("â","a");
         nom=nom.replaceAll("î","i");
@@ -128,12 +130,9 @@ public abstract class Etape implements Iterable<Etape>{
         nom=nom.replaceAll("ý","y");
         nom=nom.replaceAll("š","s");
         nom=nom.replaceAll("°","_");
-        nom=nom.replaceAll("]","_");
         nom=nom.replaceAll("ð","_");
         nom=nom.replaceAll("µ","u");
         nom=nom.replaceAll("%","_");
-        nom=nom.replaceAll("-","_");
-        nom=nom.replaceAll("/","_");
         nom=nom.replaceAll("&","_");
         nom=nom.replaceAll("~","_");
         nom=nom.replaceAll("`","_");
@@ -146,12 +145,14 @@ public abstract class Etape implements Iterable<Etape>{
         nom=nom.replaceAll("²","2");
         nom=nom.replaceAll("<","_");
         nom=nom.replaceAll(">","_");
-        nom=nom.replaceAll(";","_");
-        nom=nom.replaceAll(",","_");
         nom=nom.replaceAll("§","e");
-        nom=nom.replaceAll("!","_");
         nom=nom.replaceAll("¨","_");
         nom=nom.replaceAll("#","_");
+        return nom;
+    }
+
+
+    public String NameEtape(){
         return nom;
     }
 }
