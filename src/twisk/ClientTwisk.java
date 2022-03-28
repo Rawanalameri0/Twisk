@@ -7,7 +7,7 @@ public class ClientTwisk {
 
     public static void initialiserMonde(Monde monde){
         Etape Tickets,Cine,FileCafet,Cafet;
-        FileCafet=new Guichet("File Cafet",4);
+        FileCafet=new Guichet("1File Cafet",4);
         Cafet=new ActiviteRestreinte("Caféteria",6,3);
         Tickets =new Guichet("Tickets",2);
         Cine=new Activite("Cinéma");

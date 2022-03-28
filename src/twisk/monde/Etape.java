@@ -106,48 +106,21 @@ public abstract class Etape implements Iterable<Etape>{
      * @return le nom après la correction
      */
     public String ValiderLeNom(String nom){
-        nom=nom.replaceAll("[\\s\\p{Punct}]","_");
-        nom=nom.replaceAll("é","e");
-        nom=nom.replaceAll("è","e");
-        nom=nom.replaceAll("ù","u");
-        nom=nom.replaceAll("ê","e");
-        nom=nom.replaceAll("â","a");
-        nom=nom.replaceAll("î","i");
-        nom=nom.replaceAll("à","a");
-        nom=nom.replaceAll("ô","o");
+        nom=nom.replaceAll("[\\p{Punct}]","_");
+        nom=nom.replaceAll("[&\\p{javaWhitespace}]","_");
+        nom=nom.replaceAll("[éèêë£€]","e");
+        nom=nom.replaceAll("[âàåãá]","a");
+        nom=nom.replaceAll("[ùµú]","u");
+        nom=nom.replaceAll("[ñ]","n");
+        nom=nom.replaceAll("[îïì]","i");
+        nom=nom.replaceAll("[ôð]","n");
         nom=nom.replaceAll("æ","ae");
         nom=nom.replaceAll("ç","c");
-        nom=nom.replaceAll("ì","i");
-        nom=nom.replaceAll("ñ","n");
-        nom=nom.replaceAll("=","_");
-        nom=nom.replaceAll("ú","u");
-        nom=nom.replaceAll("å","a");
-        nom=nom.replaceAll("ã","a");
+        nom=nom.replaceAll("[=þ°%~`¤²<>{#}¨]","");
         nom=nom.replaceAll("ß","b");
-        nom=nom.replaceAll("þ","p");
-        nom=nom.replaceAll("ë","e");
-        nom=nom.replaceAll("ï","i");
         nom=nom.replaceAll("ý","y");
         nom=nom.replaceAll("š","s");
-        nom=nom.replaceAll("°","_");
-        nom=nom.replaceAll("ð","_");
-        nom=nom.replaceAll("µ","u");
-        nom=nom.replaceAll("%","_");
-        nom=nom.replaceAll("&","_");
-        nom=nom.replaceAll("~","_");
-        nom=nom.replaceAll("`","_");
-        nom=nom.replaceAll("á","a");
-        nom=nom.replaceAll("µ","u");
-        nom=nom.replaceAll("µ","u");
-        nom=nom.replaceAll("€","e");
-        nom=nom.replaceAll("£","e");
-        nom=nom.replaceAll("¤","o");
-        nom=nom.replaceAll("²","2");
-        nom=nom.replaceAll("<","_");
-        nom=nom.replaceAll(">","_");
-        nom=nom.replaceAll("§","e");
-        nom=nom.replaceAll("¨","_");
-        nom=nom.replaceAll("#","_");
+        nom=nom.replaceAll("^([0-9]+)", "");
         return nom;
     }
 

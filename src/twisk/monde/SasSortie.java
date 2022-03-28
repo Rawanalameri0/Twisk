@@ -11,7 +11,7 @@ public class SasSortie extends Activite{
      * La constructeur du SasSortie
      */
     public SasSortie(){
-        super("sasSortie");
+        super("Sortie");
     }
 
     /**

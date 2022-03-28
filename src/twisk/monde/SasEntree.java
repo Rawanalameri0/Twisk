@@ -10,7 +10,7 @@ public class SasEntree extends Activite{
      * La constructeur du SasEntree
      */
     public SasEntree(){
-        super("sasEntree" );
+        super("Entree" );
     }
 
     /**
@@ -26,9 +26,9 @@ public class SasEntree extends Activite{
      */
     @Override
     public String toC(){
-        return "\n   entrer("+this.getNom()+");\n" +
+        return "\n   entrer("+this.getNom()+this.getNumero()+");\n" +
                 "   delai(4,2);\n" +
-                "   transfert("+this.getNom()+","+this.gestSucc.getSuccesseur().getNom()+");"+
+                "   transfert("+this.getNom()+this.getNumero()+","+this.gestSucc.getSuccesseur().getNom()+this.gestSucc.getSuccesseur().getNumero()+");"+
                 this.gestSucc.getSuccesseur().toC();
     }
 }

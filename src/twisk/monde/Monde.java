@@ -104,7 +104,7 @@ public class Monde implements Iterable<Etape> {
 
         s.append("#include \"def.h\"\n");
         for (Etape e : gestEtapes) {
-            s.append("#define " +e.getNom() + " "+e.getNumero()+"\n");
+            s.append("#define " +e.getNom()+e.getNumero()+" "+e.getNumero()+"\n");
             if (e.estUnGuichet()){
                 s.append("#define NbSemaGuichet" + e.getNumeroGuichet() + " " + e.getNumeroGuichet() + "\n");
             }
@@ -137,5 +137,5 @@ public class Monde implements Iterable<Etape> {
     public String getNomDeEtape(int index){
         return this.gestEtapes.getNomEtape(index);
     }
-    
+
 }
