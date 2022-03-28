@@ -40,7 +40,7 @@ public class Activite extends Etape{
      * @return une chaine de carctères
      */
     public String toC(){
-        return "\n   "+getDelai()+"\n"+"   transfert(etape"+this.getNumero()+",etape"+this.gestSucc.getSuccesseur().getNumero()+");" +
+        return "\n   "+getDelai()+"\n"+"   transfert("+this.getNom()+","+this.gestSucc.getSuccesseur().getNom()+");" +
                 this.gestSucc.getSuccesseur().toC();
     }
 

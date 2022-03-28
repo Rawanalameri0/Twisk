@@ -67,7 +67,7 @@ public class Monde implements Iterable<Etape> {
 
         s.append("#include \"def.h\"\n");
         for (Etape e : gestEtapes) {
-            s.append("#define etape" +e.getNumero() +" " + e.getNumero() + "\n");
+            s.append("#define " +e.getNom() + "\n");
             if (e.estUnGuichet()){
                 s.append("#define NbSemaGuichet" + e.getNumeroGuichet() + " " + e.getNumeroGuichet() + "\n");
             }
