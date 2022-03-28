@@ -1,5 +1,8 @@
 package twisk.monde;
-
+/**
+ * Classe Activite
+ * @author IKHRICHI SOUMAYA AL-AMERI RAWAN
+ */
 public class Activite extends Etape{
 
     private int temps;

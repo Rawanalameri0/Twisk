@@ -3,6 +3,10 @@ package twisk.monde;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+/**
+ * Classe GestionnaireEtapes
+ * @author IKHRICHI SOUMAYA AL-AMERI RAWAN
+ */
 public class GestionnaireEtapes implements Iterable<Etape>{
     private ArrayList<Etape> etapes;
 

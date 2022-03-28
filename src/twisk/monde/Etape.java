@@ -4,6 +4,10 @@ import twisk.outils.FabriqueNumero;
 import java.util.Iterator;
 import java.util.Locale;
 
+/**
+ * Classe abstraite Etape
+ * @author IKHRICHI SOUMAYA AL-AMERI RAWAN
+ */
 public abstract class Etape implements Iterable<Etape>{
     protected String nom;
     protected GestionnaireSuccesseurs gestSucc;

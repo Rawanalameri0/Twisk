@@ -1,5 +1,9 @@
 package twisk.monde;
 
+/**
+ * Classe ActiviteRestreinte
+ * @author IKHRICHI SOUMAYA AL-AMERI RAWAN
+ */
 public class ActiviteRestreinte extends Activite{
 
     /**
