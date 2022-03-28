@@ -107,16 +107,17 @@ public abstract class Etape implements Iterable<Etape>{
      */
     public String ValiderLeNom(String nom){
         nom=nom.replaceAll("[\\p{Punct}]","_");
-        nom=nom.replaceAll("[&\\p{javaWhitespace}]","_");
-        nom=nom.replaceAll("[éèêë£€]","e");
-        nom=nom.replaceAll("[âàåãá]","a");
-        nom=nom.replaceAll("[ùµú]","u");
-        nom=nom.replaceAll("[ñ]","n");
-        nom=nom.replaceAll("[îïì]","i");
-        nom=nom.replaceAll("[ôð]","n");
+        nom=nom.replaceAll("[\\p{javaWhitespace}]","_");
+        nom=nom.replaceAll("&","_");
+        nom=nom.replaceAll("[ÈÉÊËèéêë£€]","e");
+        nom=nom.replaceAll("[ÀÁÂÃÄÅàáâãäå@]","a");
+        nom=nom.replaceAll("[ÙÚÛÜùúûüµ]","u");
+        nom=nom.replaceAll("[Ññ]","n");
+        nom=nom.replaceAll("[ÌÍÎÏìíîï]","i");
+        nom=nom.replaceAll("[ÒÓÔÕÖØòóôõöø]","o");
         nom=nom.replaceAll("æ","ae");
-        nom=nom.replaceAll("ç","c");
-        nom=nom.replaceAll("[=þ°%~`¤²<>{#}¨]","");
+        nom=nom.replaceAll("[Çç]","c");
+        nom=nom.replaceAll("[=þ°%~`¤²<>{#}¨+/^)(|]","");
         nom=nom.replaceAll("ß","b");
         nom=nom.replaceAll("ý","y");
         nom=nom.replaceAll("š","s");
