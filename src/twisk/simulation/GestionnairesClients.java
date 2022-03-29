@@ -1,5 +1,7 @@
 package twisk.simulation;
 
+import twisk.monde.Etape;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -31,14 +33,6 @@ public class GestionnairesClients implements Iterable<Client>{
     }
 
     /**
-     * indique le nombre de clients à gérer
-     * @param nbClients
-     */
-    public void setNbClients(int nbClients){
-        clients=new ArrayList<>(nbClients);
-    }
-
-    /**
      * fait le ménage dans les clients, pour traiter une nouvelle simulation
      */
     public void nettoyer(){
@@ -50,6 +44,19 @@ public class GestionnairesClients implements Iterable<Client>{
      */
     public int getNbClients(){
         return clients.size();
+    }
+
+    /**
+     * met à jour les attributs etape et rang du client
+     * @param numeroClient le numéro du client
+     * @param etape etape où se trouve le client
+     * @param rang le rang du client
+     */
+    public void allerA(int numeroClient,Etape etape,int rang){
+        for (Client c:clients){
+            if (c.getNumeroClient()==numeroClient)
+                c.allerA(etape,rang);
+        }
     }
 
     @Override

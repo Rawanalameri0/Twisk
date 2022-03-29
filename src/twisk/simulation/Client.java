@@ -23,10 +23,12 @@ public class Client {
      * @param etape l'etape dans le monde
      * @param rang le rang d'un client
      */
-    public void allerA(Etape etape, int rang)
-        {
+    public void allerA(Etape etape, int rang){
             this.etape=etape;
-            this.rang = rang;
+            this.rang=rang;
+    }
 
-        }
+    public int getNumeroClient() {
+        return numeroClient;
+    }
 }
