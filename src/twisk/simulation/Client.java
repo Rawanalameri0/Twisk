@@ -16,6 +16,8 @@ public class Client {
      */
     public Client(int numero){
         this.numeroClient = numero;
+        this.rang=0;
+        this.etape=null;
     }
 
     /**
@@ -30,5 +32,22 @@ public class Client {
 
     public int getNumeroClient() {
         return numeroClient;
+    }
+
+
+   //Un getter pour tester la fonction allerA
+    /**
+     * @return un getter d'un etape
+     */
+    public Etape getEtape() {
+        return etape;
+    }
+
+    // Un getter pour tester la fonction allerA
+    /**
+     * @return un getter d'un rang
+     */
+    public int getRang() {
+        return rang;
     }
 }
