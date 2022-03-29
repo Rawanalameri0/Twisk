@@ -6,7 +6,6 @@ import twisk.monde.Activite;
 import twisk.monde.Etape;
 import twisk.simulation.Client;
 
-import static com.sun.tools.doclint.Entity.Eta;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ClientTest {
@@ -26,8 +25,7 @@ class ClientTest {
     @Test
     void allerA() {
         client1.allerA(act,2);
-        assertEquals("Cinema",client1.getEtape().NameEtape() );
+        assertEquals("Cinema",client1.getEtape().NameEtape());
         assertEquals(2,client1.getRang());
-
     }
 }

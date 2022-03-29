@@ -138,4 +138,8 @@ public class Monde implements Iterable<Etape> {
         return this.gestEtapes.getNomEtape(index);
     }
 
+    public Etape getEtape(int index){
+        return null;
+    }
+
 }
