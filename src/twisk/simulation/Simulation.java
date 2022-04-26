@@ -66,6 +66,7 @@ public class Simulation {
         }
         gestClients.nettoyer();
         System.out.println("");
+        monde.reset();
         nettoyage();
     }
 
