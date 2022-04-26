@@ -45,11 +45,10 @@ public class ClientTwisk {
         initialiserMonde1(monde);
         sim.setNbClients(5);
         sim.simuler(monde);
-        System.out.println(monde.toC());
         monde.reset();
         Monde monde1= new Monde();
-        initialiserMonde2(monde1);sim.simuler(monde1);
-        System.out.println(monde1.toC());
+        initialiserMonde2(monde1);
+        sim.simuler(monde1);
         monde1.reset();
     }
 }
