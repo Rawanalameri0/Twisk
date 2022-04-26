@@ -129,4 +129,8 @@ public abstract class Etape implements Iterable<Etape>{
     public String NameEtape(){
         return nom;
     }
+
+    public void reset(){
+        FabriqueNumero.getInstance().reset();
+    }
 }

@@ -1,5 +1,6 @@
 package twisk.monde;
 
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -63,5 +64,10 @@ public class GestionnaireEtapes implements Iterable<Etape>{
      */
     public Etape getEtape(int index){
         return this.etapes.get(index);
+    }
+
+    public void reset(){
+        for(Etape e: etapes)
+            e.reset();
     }
 }

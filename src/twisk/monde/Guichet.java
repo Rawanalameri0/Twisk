@@ -15,7 +15,7 @@ public class Guichet extends Etape{
      */
     public Guichet(String nom){
         super(nom);
-        this.nbjetons=2;
+        this.nbjetons=3;
     }
 
     /**
@@ -67,4 +67,5 @@ public class Guichet extends Etape{
     public int getNbjetons() {
         return nbjetons;
     }
+
 }

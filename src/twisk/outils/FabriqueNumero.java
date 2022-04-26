@@ -45,7 +45,6 @@ public class FabriqueNumero {
      * Reset les nombres d'etapes et semaphore
      */
     public void reset(){
-
         cptEtape=-1;
         cptSemaphore=0;
     }

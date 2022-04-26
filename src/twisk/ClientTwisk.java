@@ -5,9 +5,9 @@ import twisk.simulation.Simulation;
 
 public class ClientTwisk {
 
-    public static void initialiserMonde(Monde monde){
+    public static void initialiserMonde1(Monde monde){
         Etape Tickets,Cine,FileCafet,Cafet;
-        FileCafet=new Guichet("1File Cafet",4);
+        FileCafet=new Guichet("File Cafet",4);
         Cafet=new ActiviteRestreinte("Caféteria",6,3);
         Tickets =new Guichet("Guichet-Tickets",2);
         Cine=new Activite("Cinéma");
@@ -20,7 +20,7 @@ public class ClientTwisk {
     }
 
     
-    public void intialiserMonde2(Monde monde){
+    public static void initialiserMonde2(Monde monde){
         Etape fileTob,tob,fileBalon,Balonc,plage,fileWC,toilette;
         fileTob=new Guichet("File Toboggon",3);
         tob=new ActiviteRestreinte("Toboggan",2,1);
@@ -42,9 +42,15 @@ public class ClientTwisk {
     public static void main(String[] args) {
         Simulation sim = new Simulation();
         Monde monde = new Monde();
-        initialiserMonde(monde);
+        initialiserMonde1(monde);
         sim.setNbClients(5);
         sim.simuler(monde);
+        System.out.println(monde.toC());
+        monde.reset();
+        Monde monde1= new Monde();
+        initialiserMonde2(monde1);sim.simuler(monde1);
+        System.out.println(monde1.toC());
+        monde1.reset();
     }
 }
 

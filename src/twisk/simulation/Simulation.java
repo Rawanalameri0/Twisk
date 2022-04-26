@@ -17,7 +17,7 @@ public class Simulation {
     public Simulation() {
         kitc = new KitC();
         kitc.creerEnvironement();
-        gestClients = new GestionnairesClients();
+        gestClients = new GestionnairesClients(nbClients);
     }
 
     /**
@@ -64,16 +64,16 @@ public class Simulation {
                 e.printStackTrace();
             }
         }
+        gestClients.nettoyer();
         System.out.println("");
         nettoyage();
     }
 
     /**
-     * Commencer la simulation
-     *
-     * @param nbEtapes          le nombre d'etapes
-     * @param nbGuichets        le nombre de guichet
-     * @param nbClients         le nombre de client
+     * Commence la simulation
+     * @param nbEtapes le nombre d'etapes
+     * @param nbGuichets le nombre de guichet
+     * @param nbClients le nombre de client
      * @param tabJetonsServices un tableau des jetons
      * @return un tableau d'entiers
      */

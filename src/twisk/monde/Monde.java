@@ -142,4 +142,7 @@ public class Monde implements Iterable<Etape> {
         return null;
     }
 
+    public void reset(){
+        gestEtapes.reset();
+    }
 }
