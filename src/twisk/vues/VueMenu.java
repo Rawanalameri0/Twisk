@@ -40,11 +40,13 @@ public class VueMenu extends MenuBar implements Observateur {
         MenuItem delai = new MenuItem("délai");
         delai.setOnAction(new EcouteurDelai(monde));
         MenuItem ecrattemps = new MenuItem("écart-temps");
-        ecrattemps.setOnAction(new EcouteurEcrat(this.monde));
+        MenuItem nbJetons = new MenuItem("nombre de jetons");
+        ecrattemps.setOnAction(new EcouteurEcart(this.monde));
+        nbJetons.setOnAction(new EcouteurNbJetons(this.monde));
         fichier.getItems().addAll(quitter);
         edition.getItems().addAll(supprimer,renommer,effacerselection);
         Monde.getItems().addAll(entree,sortie);
-        Parametres.getItems().addAll(delai,ecrattemps);
+        Parametres.getItems().addAll(delai,ecrattemps,nbJetons);
         this.setStyle("-fx-font-weight: bold; -fx-text-fill: white; -fx-border-color: #062047;-fx-background-color:#3e7caf");
         this.getMenus().addAll(fichier,edition,Monde,Parametres);
         this.monde.ajouterObservateur(this);

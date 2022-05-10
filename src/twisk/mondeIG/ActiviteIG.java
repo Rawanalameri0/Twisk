@@ -32,4 +32,9 @@ public class ActiviteIG extends EtapeIG{
     public void setEcart(int ecart){
        this.ecart=ecart;
     }
+
+    public boolean isGuichet(){
+        return true;
+    }
+
 }
