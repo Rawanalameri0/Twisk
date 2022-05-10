@@ -3,10 +3,7 @@ package twisk;
 import twisk.monde.*;
 import twisk.outils.ClassLoaderPerso;
 import twisk.simulation.Simulation;
-
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import java.lang.reflect.*;
 
 public class ClientTwisk {
 
@@ -22,18 +19,6 @@ public class ClientTwisk {
         monde.ajouter(FileCafet,Cafet,Tickets,Cine);
         monde.aCommeEntree(FileCafet);
         monde.aCommeSortie(Cine);
-        ClassLoaderPerso classloader = new ClassLoaderPerso(ClientTwisk.class.getClass().getClassLoader());
-        try {
-            Class<?> classsimulation = classloader.loadClass("twisk.simulation.Simulation");
-            Object simul= classsimulation.getConstructor().newInstance();
-            Method setnbclients = simul.getClass().getDeclaredMethod("setNbClients", int.class);
-            Method simuler = simul.getClass().getDeclaredMethod("simuler",twisk.monde.Monde.class);
-            setnbclients.invoke(simul,5);
-            simuler.invoke(simul,monde);
-        } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
-        }
-
     }
 
     
@@ -54,28 +39,26 @@ public class ClientTwisk {
         monde.ajouter(fileTob,tob,fileBalon,Balonc,plage,fileWC,toilette);
         monde.aCommeEntree(fileTob,fileBalon);
         monde.aCommeSortie(plage,Balonc,toilette);
-        ClassLoaderPerso classloader = new ClassLoaderPerso(ClientTwisk.class.getClass().getClassLoader());
+    }
+
+    private static void simulationMonde(Monde monde){
         try {
-            Class<?> classsimulation = classloader.loadClass("twisk.simulation.Simulation");
-            Object simul= classsimulation.getConstructor().newInstance();
-            Method setnbclients = simul.getClass().getDeclaredMethod("setNbClients", Integer.class);
-            Method simuler = simul.getClass().getDeclaredMethod("simuler",twisk.monde.Monde.class);
+            ClassLoaderPerso classloader = new ClassLoaderPerso(ClientTwisk.class.getClassLoader());
+            Class<?> simulation = classloader.loadClass("twisk.simulation.Simulation");
+            Object simul= simulation.getConstructor().newInstance();
+            Method setnbclients = simulation.getMethod("setNbClients", int.class);
+            Method simuler = simulation.getMethod("simuler",Monde.class);
             setnbclients.invoke(simul,5);
             simuler.invoke(simul,monde);
         } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
+           e.printStackTrace();
         }
     }
 
     public static void main(String[] args) {
-        Simulation sim = new Simulation();
         Monde monde = new Monde();
         initialiserMonde1(monde);
-        sim.setNbClients(5);
-        sim.simuler(monde);
-        Monde monde1= new Monde();
-        initialiserMonde2(monde1);
-        sim.simuler(monde1);
+        simulationMonde(monde);
     }
 }
 
