@@ -22,7 +22,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
      */
     public MondeIG (){
         this.Hetapes= new HashMap<>();
-        EtapeIG A = new ActiviteIG("Activite"+i,"0",40,40);
+        EtapeIG A = new ActiviteIG("Activite"+i,"0",TailleComposants.getInstance().getLargeurActivite(),TailleComposants.getInstance().getHauteurActivite());
         this.Hetapes.put(A.getIdentifiant(),A);
     }
 

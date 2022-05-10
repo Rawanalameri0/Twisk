@@ -44,6 +44,7 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
 
     }
 
+
     /**
      * @return getter de identifiant
      */
