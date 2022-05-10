@@ -1,4 +1,4 @@
-package twisk.Ecouteurs;
+package twisk.ecouteurs;
 import twisk.exceptions.TwiskException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

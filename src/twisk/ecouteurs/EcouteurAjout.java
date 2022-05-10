@@ -1,4 +1,4 @@
-package twisk.Ecouteurs;
+package twisk.ecouteurs;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import twisk.mondeIG.EtapeIG;

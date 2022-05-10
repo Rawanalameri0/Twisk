@@ -1,4 +1,4 @@
-package twisk.Ecouteurs;
+package twisk.ecouteurs;
 import javafx.event.EventHandler;
 import javafx.scene.input.*;
 import twisk.mondeIG.MondeIG;

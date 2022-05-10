@@ -3,7 +3,7 @@ package twisk.vues;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import twisk.Ecouteurs.*;
+import twisk.ecouteurs.*;
 import twisk.mondeIG.MondeIG;
 
 /**

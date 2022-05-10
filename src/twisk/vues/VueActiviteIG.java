@@ -1,14 +1,10 @@
 package twisk.vues;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import twisk.mondeIG.EtapeIG;
 import twisk.mondeIG.MondeIG;
-import twisk.mondeIG.PointDeControleIG;
 import twisk.outils.TailleComposants;
-
-import java.util.ArrayList;
 
 
 public class VueActiviteIG extends VueEtapeIG implements Observateur{

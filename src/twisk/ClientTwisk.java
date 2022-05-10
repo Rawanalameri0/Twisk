@@ -2,7 +2,6 @@ package twisk;
 
 import twisk.monde.*;
 import twisk.outils.ClassLoaderPerso;
-import twisk.simulation.Simulation;
 import java.lang.reflect.*;
 
 public class ClientTwisk {

@@ -1,4 +1,4 @@
-package twisk.Ecouteurs;
+package twisk.ecouteurs;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Line;

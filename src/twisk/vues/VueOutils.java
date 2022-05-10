@@ -5,7 +5,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
-import twisk.Ecouteurs.EcouteurAjout;
+import twisk.ecouteurs.EcouteurAjout;
 import twisk.mondeIG.MondeIG;
 
 

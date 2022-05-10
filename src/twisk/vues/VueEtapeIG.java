@@ -1,8 +1,7 @@
 package twisk.vues;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import twisk.Ecouteurs.EcouteurSelection;
-import twisk.Ecouteurs.EcouteurSetOnDragDetected;
+import twisk.ecouteurs.*;
 import twisk.mondeIG.EtapeIG;
 import twisk.mondeIG.MondeIG;
 

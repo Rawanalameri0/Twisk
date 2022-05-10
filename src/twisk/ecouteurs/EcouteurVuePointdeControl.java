@@ -1,4 +1,4 @@
-package twisk.Ecouteurs;
+package twisk.ecouteurs;
 
 import twisk.exceptions.TwiskException;
 import javafx.animation.PauseTransition;
