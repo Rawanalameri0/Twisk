@@ -4,18 +4,18 @@ import javafx.event.EventHandler;
 import twisk.mondeIG.EtapeIG;
 import twisk.mondeIG.MondeIG;
 /**
- * Classe EcouteurAjout
+ * Classe EcouteurAjoutActivite
  * @author AL-AMERI RAWAN
  */
-public class EcouteurAjout implements EventHandler<ActionEvent> {
+public class EcouteurAjoutActivite implements EventHandler<ActionEvent> {
     private MondeIG monde;
 
 
     /**
-     * La constructeur EcouteurAjout qui ajout une activite dans le monde
+     * La constructeur EcouteurAjoutActivite qui ajout une activite dans le monde
      * @param monde
      */
-    public EcouteurAjout(MondeIG monde) {
+    public EcouteurAjoutActivite(MondeIG monde) {
         this.monde = monde;
 
 
