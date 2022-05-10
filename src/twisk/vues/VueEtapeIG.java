@@ -24,15 +24,12 @@ public abstract class VueEtapeIG extends VBox implements Observateur {
         this.labl=new Label(this.etape.getnomEtape()+":" );
         this.setStyle("-fx-border-color: blue; -fx-background-color: white;-fx-alignment: center;-fx-background-insets: 0 0 -1 0, 0, 1, 2;-fx-border-radius: 5; -fx-background-radius: 3px, 3px, 2px, 1px");
         this.Entree_Sortie();
-        this.getChildren().add(labl);
         this.setId(etape.getIdentifiant());
         this.setOnMouseClicked(new EcouteurSelection(monde,this));
         this.setOnDragDetected(new EcouteurSetOnDragDetected(monde,this));
         if(this.etape.isSelect() && !this.etape.isEntree()&& !this.etape.isSortie()){
             this.setStyle("-fx-background-color: #1968b8");
         }
-
-
     }
 
 

@@ -10,10 +10,17 @@ public class TailleComposants {
     public static TailleComposants getInstance(){
         return instance;
     }
-    public int getLargeur(){
+    public int getLargeurActivite(){
         return largeur;
     }
-    public int getHauteur(){
+    public int getHauteurActivite(){
         return hauteur;
+    }
+    public int getLargeurGuichet(){
+        return 250;
+    }
+
+    public int getHauteurGuichet() {
+        return 70;
     }
 }

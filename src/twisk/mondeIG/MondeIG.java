@@ -1,13 +1,8 @@
 package twisk.mondeIG;
 
-import twisk.exceptions.TwiskException;
-import twisk.exceptions.TwiskExceptionArcTrouvee;
-import twisk.exceptions.TwiskExceptionEtapeIdentique;
-import twisk.outils.FabriqueIdentifiant;
-import twisk.vues.Observateur;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
+import twisk.exceptions.*;
+import twisk.outils.*;
+import java.util.*;
 
 /**
  * Classe MondeIG
@@ -36,11 +31,17 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
      * @param type
      */
     public void ajouter(String type) {
+        TailleComposants taille = TailleComposants.getInstance();
+        FabriqueIdentifiant FI = FabriqueIdentifiant.getInstance();
         if(type.equals("Activite")) {
             i = i+1;
-            FabriqueIdentifiant FI = FabriqueIdentifiant.getInstance();
-            EtapeIG e = new ActiviteIG(type+i, FI.getInstance().getidentifiantEtape()+1, 40, 40);
+            EtapeIG e= new ActiviteIG(type+i, FI.getidentifiantEtape()+1, taille.getLargeurActivite(),taille.getHauteurActivite() );
             this.Hetapes.put(e.getIdentifiant(), e);
+            notifierObservateurs();
+        }
+        else if (type.equals("Guichet")){
+            EtapeIG et= new GuichetIG(type,FI.getidentifiantEtape()+1,taille.getLargeurGuichet(),taille.getHauteurGuichet());
+            this.Hetapes.put(et.getIdentifiant(),et);
             notifierObservateurs();
         }
     }
@@ -68,7 +69,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
      */
     public void ajouter (PointDeControleIG pt1,PointDeControleIG pt2)throws TwiskException {
         if(pt1.getEtape().equals(pt2.getEtape())){
-            throw new TwiskExceptionEtapeIdentique("Les points de memes etapes; impossible d'ajouter d'ars");
+            throw new TwiskExceptionEtapeIdentique("Les points de memes etapes; impossible de créer l'arc");
         }
         for(ArcIG arcIG:arcs){
            if(arcIG.getpt1().getY()== pt1.getY() && arcIG.getpt1().getX()== pt1.getX()&& arcIG.getpt2().getY()== pt2.getY()&&arcIG.getpt2().getX()== pt2.getX()){
@@ -150,7 +151,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
      */
     public void ajoutsortie(){
         for (EtapeIG etape : etapesSelectionee){
-            if(entrees.contains(etape)==false){
+            if(!entrees.contains(etape)){
                 etape.setSortie(true);
                 etape.setSelect(false);
                 this.sorties.add(etape);
@@ -165,7 +166,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
      */
     public void ajoutentree(){
         for (EtapeIG etape : etapesSelectionee){
-            if(entrees.contains(etape)==false){
+            if(!entrees.contains(etape)){
                 etape.setEntree(true);
                 etape.setSelect(false);
                 this.entrees.add(etape);
@@ -183,11 +184,14 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
 
 
     public void setEcrat(int i){
-        this.etapesSelectionee.get(0).setEcrat(i);
+        this.etapesSelectionee.get(0).setEcart(i);
     }
 
     public void renommer(String s){
         this.etapesSelectionee.get(0).setNom(s);
     }
 
+    public void setNbJetons(int nbJetons){
+        this.etapesSelectionee.get(0).setNbJetons(nbJetons);
+    }
 }

@@ -28,9 +28,9 @@ public class VueActiviteIG extends VueEtapeIG implements Observateur{
         int x = this.etape.getPosX();
         int y = this.etape.getPosY();
         this.relocate(x,y);
-        this.getChildren().add(hBox);
-        TailleComposants tailleComposants=TailleComposants.getInstance();
-        this.setPrefSize(tailleComposants.getInstance().getLargeur(),tailleComposants.getInstance().getHauteur());
+        this.getChildren().addAll(labl,hBox);
+        TailleComposants taille=TailleComposants.getInstance();
+        this.setPrefSize(taille.getLargeurActivite(),taille.getHauteurActivite());
 
     }
 

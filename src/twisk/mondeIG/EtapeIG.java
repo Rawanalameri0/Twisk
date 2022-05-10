@@ -31,9 +31,8 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
     public EtapeIG(String nom, String idf, int larg, int haut){
         this.nom = nom;
         this.identifiant=idf;
-        TailleComposants tailleComposants = TailleComposants.getInstance();
-        this.largeur=tailleComposants.getLargeur();
-        this.hauteur= tailleComposants.getHauteur();
+        this.largeur=larg;
+        this.hauteur= haut;
         Random rand = new Random();
         this.posX=rand.nextInt(400);
         this.posY= rand.nextInt(400);
