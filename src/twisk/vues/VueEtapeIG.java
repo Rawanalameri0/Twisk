@@ -21,7 +21,7 @@ public abstract class VueEtapeIG extends VBox implements Observateur {
     public VueEtapeIG(MondeIG monde,EtapeIG etape){
         this.monde=monde;
         this.etape=etape;
-        this.labl=new Label(this.etape.getnomEtape()+":" + " "+ this.etape.getDelai());
+        this.labl=new Label(this.etape.getnomEtape()+":" );
         this.setStyle("-fx-border-color: blue; -fx-background-color: white;-fx-alignment: center;-fx-background-insets: 0 0 -1 0, 0, 1, 2;-fx-border-radius: 5; -fx-background-radius: 3px, 3px, 2px, 1px");
         this.Entree_Sortie();
         this.getChildren().add(labl);

@@ -33,8 +33,6 @@ public class VueOutils extends TilePane implements Observateur {
         ajout.setOnAction(new EcouteurAjout(monde));
         this.getChildren().add(ajout);
         this.monde.ajouterObservateur(this);
-
-
     }
 
     @Override

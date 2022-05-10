@@ -20,8 +20,6 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
     protected boolean select;
     protected boolean entree;
     protected boolean sortie;
-    protected int delai;
-    protected int ecrat;
 
     /**
      *La constructeur EtapeIG
@@ -33,7 +31,7 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
     public EtapeIG(String nom, String idf, int larg, int haut){
         this.nom = nom;
         this.identifiant=idf;
-       TailleComposants tailleComposants = TailleComposants.getInstance();
+        TailleComposants tailleComposants = TailleComposants.getInstance();
         this.largeur=tailleComposants.getLargeur();
         this.hauteur= tailleComposants.getHauteur();
         Random rand = new Random();
@@ -44,7 +42,6 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
         tabpts[2]=new PointDeControleIG("2",this, posX+largeur,posY+hauteur/2);
         tabpts[3]=new PointDeControleIG("3",this, posX+largeur/2,posY+hauteur);
         this.select=false;
-        this.delai=1;
 
     }
 
@@ -66,7 +63,7 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
      * @return getter de delai
      */
     public  String getDelai(){
-       return ""+delai+ " ± "+ecrat+" temps";
+       return null;
     }
 
     /**
@@ -119,13 +116,6 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
      */
     public void setNom(String nom) {
         this.nom = nom;
-    }
-
-    /**
-     * @return getter de la table des point de controle
-     */
-    public PointDeControleIG[] getTabpts() {
-        return tabpts;
     }
 
     /**
@@ -189,15 +179,29 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
      * @param delai
      */
     public void setDelai(int delai) {
-        this.delai=delai;
+
     }
 
     /**
      * setter de ecrat
      * @param ecrat
      */
-    public void setEcrat(int ecrat) {
-        this.ecrat = ecrat;
+    public void setEcart(int ecrat) {
+
     }
 
+    /**
+     * setter de nombre de jetons
+     * @param nbJetons
+     */
+    public void setNbJetons(int nbJetons){
+
+    }
+
+    /**
+     * @return le nombre de jetons de l'étape si elle est un guichet
+     */
+    public int getJetons(){
+        return 0;
+    }
 }

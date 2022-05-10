@@ -14,7 +14,6 @@ import java.util.Iterator;
  */
 public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
     private HashMap<String,EtapeIG> Hetapes;
-    private ArrayList<Observateur> obs = new ArrayList<>();
     private int i=1;
     private ArrayList<ArcIG> arcs = new ArrayList<>();
     private PointDeControleIG ptchoisi;
@@ -27,7 +26,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
      * la constructeur MondeIG
      */
     public MondeIG (){
-        this.Hetapes= new HashMap<String,EtapeIG>();
+        this.Hetapes= new HashMap<>();
         EtapeIG A = new ActiviteIG("Activite"+i,"0",40,40);
         this.Hetapes.put(A.getIdentifiant(),A);
     }
@@ -57,7 +56,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
     /**
      * @return getter de hashmap etapes
      */
-    public int getHetapes() {
+    public int getNombresEtapes() {
         return Hetapes.size();
     }
 
@@ -85,10 +84,6 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
         notifierObservateurs();
     }
 
- /*  public ArrayList<ArcIG> getarcs(){
-        return arcs;
-   }*/
-
     /**
      * creation d'arc
      * @param pt
@@ -111,13 +106,6 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
      */
     public Iterator <ArcIG> iteratorarc(){
         return arcs.iterator();
-    }
-
-    /**
-     * @return une liste d'etapes selectionée
-     */
-    public ArrayList<EtapeIG> getEtapesSelectionee() {
-        return etapesSelectionee;
     }
 
     /**
@@ -156,15 +144,6 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
         }
 
     }
-
-
-    /*public ArrayList<EtapeIG> getEntrees() {
-        return entrees;
-    }*/
-
-   /* public ArrayList<EtapeIG> getSorties() {
-        return sorties;
-    }*/
 
     /**
      * ajouter les sorties
@@ -210,7 +189,5 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
     public void renommer(String s){
         this.etapesSelectionee.get(0).setNom(s);
     }
-
-
 
 }
