@@ -204,4 +204,5 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
     public int getJetons(){
         return 0;
     }
+    public abstract boolean isGuichet();
 }

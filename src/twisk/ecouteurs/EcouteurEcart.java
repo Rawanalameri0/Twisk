@@ -5,18 +5,18 @@ import javafx.scene.control.TextInputDialog;
 import twisk.mondeIG.MondeIG;
 import java.util.Optional;
 /**
- * Classe EcouteurEcrat
+ * Classe EcouteurEcart
  * @author AL-AMERI RAWAN
  */
-public class EcouteurEcrat implements EventHandler<ActionEvent> {
+public class EcouteurEcart implements EventHandler<ActionEvent> {
     private MondeIG monde;
 
 
     /**
-     * La constructeur EcouteurEcrat qui permettre de choisir le ecrat-temps d'une activite
+     * La constructeur EcouteurEcart qui permettre de choisir le ecrat-temps d'une activite
      * @param monde
      */
-    public EcouteurEcrat(MondeIG monde){
+    public EcouteurEcart(MondeIG monde){
         this.monde=monde;
     }
 

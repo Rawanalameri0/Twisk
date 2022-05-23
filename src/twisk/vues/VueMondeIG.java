@@ -21,8 +21,12 @@ public class VueMondeIG extends Pane implements Observateur {
      */
     public VueMondeIG(MondeIG monde){
         this.monde=monde;
+        VueEtapeIG vue;
         for (EtapeIG etape:monde){
-            VueEtapeIG vue = new VueActiviteIG(monde,etape);
+            if(etape.isGuichet())
+                vue = new VueActiviteIG(monde,etape);
+            else
+                vue=new VueGuichetIG(monde,etape);
             this.getChildren().add(vue);
             for (PointDeControleIG pt:etape){
                 VuePointDeControleIG vuept=new VuePointDeControleIG(monde,etape,pt);
