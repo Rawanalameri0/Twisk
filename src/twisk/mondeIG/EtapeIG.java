@@ -1,8 +1,6 @@
 package twisk.mondeIG;
 
-import twisk.outils.TailleComposants;
-
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 
@@ -16,7 +14,7 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
     protected int posY;
     protected int largeur;
     protected int hauteur;
-    protected PointDeControleIG[] tabpts = new PointDeControleIG[4];
+    protected ArrayList<PointDeControleIG> tabpts;
     protected boolean select;
     protected boolean entree;
     protected boolean sortie;
@@ -34,12 +32,10 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
         this.largeur=larg;
         this.hauteur= haut;
         Random rand = new Random();
+        tabpts= new ArrayList<>(4);
         this.posX=rand.nextInt(400);
         this.posY= rand.nextInt(400);
-        tabpts[0]=new PointDeControleIG("0",this, posX,posY+hauteur/2);
-        tabpts[1]=new PointDeControleIG("1",this, posX+largeur/2,posY);
-        tabpts[2]=new PointDeControleIG("2",this, posX+largeur,posY+hauteur/2);
-        tabpts[3]=new PointDeControleIG("3",this, posX+largeur/2,posY+hauteur);
+        this.initialiserPointsDeControle();
         this.select=false;
 
     }
@@ -85,7 +81,7 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
      */
     @Override
     public Iterator<PointDeControleIG> iterator() {
-        return Arrays.asList(tabpts).iterator();
+        return tabpts.iterator();
     }
 
     /**
@@ -107,7 +103,7 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
      * supprime les tous les points de controle
      */
     public void supprime(){
-       tabpts= null;
+       tabpts.clear();
     }
 
     /**
@@ -168,10 +164,20 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
      * recreer tous les point de controle
      */
     public void refaitptdecontrole(){
-        tabpts[0]=new PointDeControleIG("0",this, posX,posY+hauteur/2);
-        tabpts[1]=new PointDeControleIG("1",this, posX+largeur/2,posY);
-        tabpts[2]=new PointDeControleIG("2",this, posX+largeur,posY+hauteur/2);
-        tabpts[3]=new PointDeControleIG("3",this, posX+largeur/2,posY+hauteur);
+        tabpts.clear();
+        initialiserPointsDeControle();
+    }
+
+    public void initialiserPointsDeControle(){
+        if (this.isGuichet()){
+            tabpts.add(0,new PointDeControleIG("0",this, posX,posY+hauteur/2));
+            tabpts.add(1,new PointDeControleIG("1",this, posX+largeur,posY+hauteur/2));
+        }else {
+            tabpts.add(0,new PointDeControleIG("0",this, posX,posY+hauteur/2));
+            tabpts.add(1,new PointDeControleIG("1",this, posX+largeur/2,posY));
+            tabpts.add(2,new PointDeControleIG("2",this, posX+largeur,posY+hauteur/2));
+            tabpts.add(3,new PointDeControleIG("3",this, posX+largeur/2,posY+hauteur));
+        }
     }
 
     /**

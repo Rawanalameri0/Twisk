@@ -23,7 +23,7 @@ public class VueMondeIG extends Pane implements Observateur {
         this.monde=monde;
         VueEtapeIG vue;
         for (EtapeIG etape:monde){
-            if(etape.isGuichet())
+            if(!etape.isGuichet())
                 vue = new VueActiviteIG(monde,etape);
             else
                 vue=new VueGuichetIG(monde,etape);
@@ -50,13 +50,18 @@ public class VueMondeIG extends Pane implements Observateur {
             this.getChildren().add(vuearcIG);
         }
 
+        VueEtapeIG vue;
         for (EtapeIG etape:monde){
-            VueEtapeIG vue = new VueActiviteIG(monde,etape);
+            if(!etape.isGuichet())
+                vue = new VueActiviteIG(monde,etape);
+            else
+                vue=new VueGuichetIG(monde,etape);
             this.getChildren().add(vue);
             for (PointDeControleIG pt:etape){
                 VuePointDeControleIG vuept=new VuePointDeControleIG(monde,etape,pt);
                 this.getChildren().add(vuept);
             }
+
         }
     }
 }

@@ -34,7 +34,7 @@ public class ActiviteIG extends EtapeIG{
     }
 
     public boolean isGuichet(){
-        return true;
+        return false;
     }
 
 }
