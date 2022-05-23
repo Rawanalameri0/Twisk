@@ -48,9 +48,9 @@ public class Guichet extends Etape{
      * @return le code C en chaine de caractere
      */
     public String toC(){
-        return "\n   delai(4,2);\n   P(ids,"+this.NameSemaphore()+");\n" +
-                "   transfert("+this.getNom()+this.getNumero()+","+this.gestSucc.getSuccesseur().getNom()+this.gestSucc.getSuccesseur().getNumero()+");\n" +
-                "   V(ids,"+this.NameSemaphore()+");" +this.gestSucc.getSuccesseur().toC();
+        return "   P(ids,"+this.NameSemaphore()+");\n" +
+                "   transfert("+this.getNom()+this.getNumero()+","+this.gestSucc.getSuccesseur().getNom()+this.gestSucc.getSuccesseur().getNumero()+");\n    " +
+                this.gestSucc.getSuccesseur().getDelai()+"\n"+"   V(ids,"+this.NameSemaphore()+");\n" +this.gestSucc.getSuccesseur().toC();
     }
 
     /**

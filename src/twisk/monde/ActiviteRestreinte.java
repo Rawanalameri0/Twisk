@@ -37,7 +37,9 @@ public class ActiviteRestreinte extends Activite{
      * @return une chaine de caractères de la fonction en C delai() avec le temps et l'ecart temps
      */
     public String toC(){
-        return super.toC();
+        return "  transfert("+this.getNom()+this.getNumero()+","+this.gestSucc.getSuccesseur().getNom()+this.gestSucc.getSuccesseur().getNumero()+");\n" +
+                this.gestSucc.getSuccesseur().toC();
+
     }
 
 }

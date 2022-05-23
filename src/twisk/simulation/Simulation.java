@@ -58,6 +58,7 @@ public class Simulation {
                     end = nbClientEtape == nbClients;
                 }
             }
+            System.out.println("");
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {

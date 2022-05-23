@@ -43,14 +43,15 @@ public class Activite extends Etape{
      * @return une chaine de carctères
      */
     public String toC(){
-        return "\n   "+getDelai()+"\n"
-                +"   transfert("+this.getNom()+this.getNumero()+","+this.gestSucc.getSuccesseur().getNom()+this.gestSucc.getSuccesseur().getNumero()+");" +
+        return "   "+getDelai()+"\n"
+                +"   transfert("+this.getNom()+this.getNumero()+","+this.gestSucc.getSuccesseur().getNom()+this.gestSucc.getSuccesseur().getNumero()+");\n" +
                 this.gestSucc.getSuccesseur().toC();
     }
 
     /**
      * @return une chaine de caractères de la fonction en C delai() avec le temps et l'ecart temps
      */
+    @Override
     public String getDelai(){
         return "delai("+temps+","+ecartTemps+");";
     }

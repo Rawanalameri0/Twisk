@@ -133,4 +133,8 @@ public abstract class Etape implements Iterable<Etape>{
     public void reset(){
         FabriqueNumero.getInstance().reset();
     }
+
+    public String getDelai(){
+        return  null;
+    }
 }

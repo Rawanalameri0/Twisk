@@ -6,7 +6,6 @@ import twisk.monde.Etape;
 import twisk.simulation.Client;
 import twisk.simulation.GestionnairesClients;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
 class GestionnairesClientsTest {

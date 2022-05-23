@@ -10,8 +10,8 @@ public class ClientTwisk {
         Etape Tickets,Cine,FileCafet,Cafet;
         FileCafet=new Guichet("File Cafet",4);
         Cafet=new ActiviteRestreinte("Caféteria",6,3);
-        Tickets =new Guichet("Guichet-Tickets",2);
-        Cine=new Activite("Cinéma");
+        Tickets =new Guichet("Guichet Cinéma",2);
+        Cine=new ActiviteRestreinte("Cinéma",5,3);
         FileCafet.ajouterSuccesseur(Cafet);
         Cafet.ajouterSuccesseur(Tickets);
         Tickets.ajouterSuccesseur(Cine);
@@ -26,10 +26,10 @@ public class ClientTwisk {
         fileTob=new Guichet("File Toboggon",3);
         tob=new ActiviteRestreinte("Toboggan",2,1);
         fileBalon=new Guichet("File Balançoire");
-        Balonc=new Activite("Balonçoire",8,2);
+        Balonc=new ActiviteRestreinte("Balonçoire",8,2);
         plage=new Activite("Plage");
         fileWC=new Guichet("File WC");
-        toilette=new Activite("Toilette");
+        toilette=new ActiviteRestreinte("Toilette");
         fileTob.ajouterSuccesseur(tob);
         fileBalon.ajouterSuccesseur(Balonc);
         tob.ajouterSuccesseur(plage);
@@ -58,6 +58,8 @@ public class ClientTwisk {
         Monde monde = new Monde();
         initialiserMonde1(monde);
         simulationMonde(monde);
+        //initialiserMonde2(monde);
+        //simulationMonde(monde);
     }
 }
 
