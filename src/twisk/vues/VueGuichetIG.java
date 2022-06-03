@@ -37,7 +37,7 @@ public class VueGuichetIG extends VueEtapeIG implements Observateur{
             px += 20;
         }
         this.relocate(x,y);
-        boxes.forEach(hBox -> this.getChildren().add(hBox));
+        //boxes.forEach(hBox -> this.getChildren().add(hBox));
         this.getChildren().addAll(labl);
         this.setPrefSize(larg,haut);
     }

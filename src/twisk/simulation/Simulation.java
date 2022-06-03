@@ -8,7 +8,7 @@ import twisk.outils.KitC;
  */
 public class Simulation {
     private KitC kitc;
-    private int nbClients;
+    private int nbClients,cpt;
     private GestionnairesClients gestClients;
 
     /**
@@ -30,7 +30,7 @@ public class Simulation {
         kitc.creerFichier(monde.toC());
         kitc.compiler();
         kitc.construireLibrairie();
-        System.load("/tmp/twisk/libTwisk.so");
+        System.load("/tmp/twisk/libTwisk"+kitc.getCompteur()+".so");
         boolean end = false;
         int nbClientEtape;
         int nbGuichets = monde.nbGuichets();

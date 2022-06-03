@@ -11,6 +11,8 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
  * @author IKHRICHI SOUMAYA AL-AMERI RAWAN
  */
 public class KitC {
+    private FabriqueNumero fabriqueNumero= FabriqueNumero.getInstance();
+    private int compteur=fabriqueNumero.getCptLibTwisk();
     /**
      * La constructeur de KitC
      */
@@ -86,7 +88,7 @@ public class KitC {
      * Consrtuction de la librairie en utlisant la execution de la commande
      */
     public void construireLibrairie() {
-        String commande = "gcc -shared /tmp/twisk/programmeC.o /tmp/twisk/codeNatif.o /tmp/twisk/client.o -o /tmp/twisk/libTwisk.so";
+        String commande = "gcc -shared /tmp/twisk/programmeC.o /tmp/twisk/codeNatif.o /tmp/twisk/client.o -o /tmp/twisk/libTwisk"+compteur+".so";
         Runtime runtime = Runtime.getRuntime();
         try {
             Process p = runtime.exec(commande);
@@ -126,6 +128,7 @@ public class KitC {
         sourceFile.close();
     }
 
-
-
+    public int getCompteur() {
+        return compteur;
+    }
 }

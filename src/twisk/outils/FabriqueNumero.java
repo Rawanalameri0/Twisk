@@ -8,6 +8,7 @@ package twisk.outils;
 public class FabriqueNumero {
     private int cptEtape;
     private  int cptSemaphore;
+    private  int cptLibTwisk;
     private static FabriqueNumero instance=new FabriqueNumero();
 
     /**
@@ -16,6 +17,7 @@ public class FabriqueNumero {
     private FabriqueNumero(){
         cptEtape=-1;
         cptSemaphore=0;
+        cptLibTwisk=0;
     }
 
     /**
@@ -47,5 +49,10 @@ public class FabriqueNumero {
     public void reset(){
         cptEtape=-1;
         cptSemaphore=0;
+    }
+
+    public int getCptLibTwisk() {
+        cptLibTwisk++;
+        return cptLibTwisk;
     }
 }
