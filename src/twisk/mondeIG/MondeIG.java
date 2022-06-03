@@ -26,6 +26,19 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
         this.Hetapes.put(A.getIdentifiant(),A);
     }
 
+    private void verifierMondeIG() throws MondeException{
+        Iterator<EtapeIG> iter= iterator();
+        while (iter.hasNext()){
+            EtapeIG e=iter.next();
+            if (e.isGuichet() && e.NbSuccesseur()>1)
+                throw new MondeException("Le guichet a plus d'un successeur");
+            if (!e.isSortie() && e.NbSuccesseur()==0)
+                throw new MondeException("Il existe pas un chemin qui mène vers la sortie");
+            
+        }
+    }
+
+
     /**
      * ajouter une activite
      * @param type
@@ -131,6 +144,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
         for (EtapeIG etape : etapesSelectionee) {
             this.Hetapes.remove(etape.getIdentifiant());
         }
+        etapesSelectionee.clear();
     }
 
     /**

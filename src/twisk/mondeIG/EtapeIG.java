@@ -221,4 +221,9 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
     public void supprimerSuccesseur(EtapeIG e){
         successeurs.remove(e);
     }
+
+    public int NbSuccesseur (){
+        return successeurs.size();
+    }
+
 }
