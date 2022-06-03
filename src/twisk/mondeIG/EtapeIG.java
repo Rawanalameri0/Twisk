@@ -15,6 +15,7 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
     protected int largeur;
     protected int hauteur;
     protected ArrayList<PointDeControleIG> tabpts;
+    protected ArrayList<EtapeIG> successeurs;
     protected boolean select;
     protected boolean entree;
     protected boolean sortie;
@@ -37,6 +38,7 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
         this.posY= rand.nextInt(400);
         this.initialiserPointsDeControle();
         this.select=false;
+        successeurs = new ArrayList<>(10);
 
     }
 
@@ -211,4 +213,12 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
         return 0;
     }
     public abstract boolean isGuichet();
+
+    public void ajouterSucesseurs(EtapeIG e){
+        successeurs.add(e);
+    }
+
+    public void supprimerSuccesseur(EtapeIG e){
+        successeurs.remove(e);
+    }
 }

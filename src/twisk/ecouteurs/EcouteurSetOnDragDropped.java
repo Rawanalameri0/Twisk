@@ -24,7 +24,7 @@ public class EcouteurSetOnDragDropped implements EventHandler<DragEvent> {
                 vueEtape.getEtape().setPosY((int) dragEvent.getY());
                 vueEtape.getEtape().setPosX((int) dragEvent.getX());
                 vueEtape.getEtape().refaitptdecontrole();
-                //vueEtape.relocate((int)dragEvent.getX(),(int)dragEvent.getY());
+                vueEtape.relocate((int)dragEvent.getX(),(int)dragEvent.getY());
 
             }
             dragEvent.consume();

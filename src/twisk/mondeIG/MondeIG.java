@@ -96,6 +96,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
         }
         else{
             ajouter(ptchoisi,pt);
+            ptchoisi.getEtape().ajouterSucesseurs(pt.getEtape());
             this.notifierObservateurs();
             this.ptchoisi=null;
         }
@@ -140,6 +141,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
         while (arcIGIterator.hasNext()){
             ArcIG arc = arcIGIterator.next();
             if(arc.getpt1().getEtape().isSelect() || arc.getpt2().getEtape().isSelect()|| arc.isSelect()){
+                arc.getpt1().getEtape().supprimerSuccesseur(arc.getpt2().getEtape());
                 arcIGIterator.remove();
             }
         }

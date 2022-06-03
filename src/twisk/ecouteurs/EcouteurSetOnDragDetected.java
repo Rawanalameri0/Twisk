@@ -20,11 +20,9 @@ public class EcouteurSetOnDragDetected implements EventHandler<MouseEvent> {
     {
         this.monde=monde;
         this.vueEtape=vueEtape;
-        System.out.println("create on drag");
     }
     @Override
     public void handle(MouseEvent mouseEvent) {
-        System.out.println("on drag handle");
         Dragboard dragboard = vueEtape.startDragAndDrop(TransferMode.MOVE);
         ClipboardContent clipboardContent = new ClipboardContent();
         clipboardContent.putString(vueEtape.getId());

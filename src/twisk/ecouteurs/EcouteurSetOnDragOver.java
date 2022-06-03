@@ -20,6 +20,5 @@ public class EcouteurSetOnDragOver implements EventHandler<DragEvent> {
             dragEvent.acceptTransferModes(TransferMode.MOVE);
         }
         dragEvent.consume();
-        System.out.println("on drag over");
     }
 }
