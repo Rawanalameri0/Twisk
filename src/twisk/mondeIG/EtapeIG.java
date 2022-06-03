@@ -8,18 +8,11 @@ import java.util.Random;
  * Class abstract EtapeIG
  */
 public abstract class EtapeIG implements Iterable<PointDeControleIG> {
-    protected String nom;
-    protected String identifiant;
-    protected int posX;
-    protected int posY;
-    protected int largeur;
-    protected int hauteur;
+    protected String nom,identifiant;
+    protected int posX,posY,largeur,hauteur;
     protected ArrayList<PointDeControleIG> tabpts;
     protected ArrayList<EtapeIG> successeurs;
-    protected boolean select;
-    protected boolean entree;
-    protected boolean sortie;
-
+    protected boolean select,entree,sortie,activiteRestreinte;
     /**
      *La constructeur EtapeIG
      * @param nom
@@ -38,6 +31,8 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
         this.posY= rand.nextInt(400);
         this.initialiserPointsDeControle();
         this.select=false;
+        entree=false;
+        sortie=false;
         successeurs = new ArrayList<>(10);
 
     }
@@ -212,7 +207,9 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
     public int getJetons(){
         return 0;
     }
-    public abstract boolean isGuichet();
+    public boolean isGuichet(){
+        return false;
+    }
 
     public void ajouterSucesseurs(EtapeIG e){
         successeurs.add(e);
@@ -222,8 +219,27 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
         successeurs.remove(e);
     }
 
-    public int NbSuccesseur (){
+    public boolean successeurExist(EtapeIG e){
+        return successeurs.contains(e);
+    }
+
+    public int NbSuccesseur() {
         return successeurs.size();
     }
 
+    public boolean isActiviteRestreinte() {
+        return false;
+    }
+
+    public EtapeIG getSuccesseur(int index){
+        return successeurs.get(index);
+    }
+
+    public boolean isActivite(){
+        return false;
+    }
+
+    public void setActiviteRestreinte(boolean activiteRestreinte) {
+        this.activiteRestreinte = activiteRestreinte;
+    }
 }

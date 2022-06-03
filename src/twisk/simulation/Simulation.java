@@ -8,7 +8,7 @@ import twisk.outils.KitC;
  */
 public class Simulation {
     private KitC kitc;
-    private int nbClients,cpt;
+    private int nbClients;
     private GestionnairesClients gestClients;
 
     /**

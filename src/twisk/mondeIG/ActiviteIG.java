@@ -33,8 +33,13 @@ public class ActiviteIG extends EtapeIG{
        this.ecart=ecart;
     }
 
-    public boolean isGuichet(){
-        return false;
+    @Override
+    public boolean isActivite(){
+       return true;
     }
 
+    @Override
+    public boolean isActiviteRestreinte(){
+       return activiteRestreinte;
+    }
 }

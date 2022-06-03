@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
 import twisk.ecouteurs.EcouteurAjoutActivite;
 import twisk.ecouteurs.EcouteurAjoutGuichet;
+import twisk.ecouteurs.EcouteurLancerLaSimulation;
 import twisk.mondeIG.MondeIG;
 
 
@@ -18,6 +19,7 @@ public class VueOutils extends TilePane implements Observateur {
     private MondeIG monde;
     private Button ajoutActivite;
     private Button ajoutGuichet;
+    private Button simuler;
 
     /**
      * La constructeur VueOutils
@@ -27,6 +29,7 @@ public class VueOutils extends TilePane implements Observateur {
         this.monde=monde;
         this.ajoutActivite = new Button(" ");
         this.ajoutGuichet = new Button(" ");
+        this.simuler = new Button("");
         ajoutActivite.setStyle("-fx-border-color: transparent ; -fx-background-color: transparent");
         Image image1 = new Image(getClass().getResourceAsStream(("/images/plus.png")));
         ImageView icone1 = new ImageView(image1);
@@ -39,13 +42,21 @@ public class VueOutils extends TilePane implements Observateur {
         ajoutGuichet.setGraphic(icone2);
         icone2.setFitHeight(32);
         icone2.setFitWidth(32);
+        simuler.setStyle("-fx-border-color: transparent ; -fx-background-color: transparent");
+        Image image3 = new Image(getClass().getResourceAsStream(("/images/start.png")));
+        ImageView icone3 = new ImageView(image3);
+        simuler.setGraphic(icone3);
+        icone3.setFitHeight(32);
+        icone3.setFitWidth(32);
         this.ajoutActivite.setTooltip( new Tooltip("Ajoutez une activite"));
         this.ajoutGuichet.setTooltip(new Tooltip("Ajoutez un guichet"));
-        ajoutActivite.setOnAction(new EcouteurAjoutActivite(monde));
-        ajoutGuichet.setOnAction(new EcouteurAjoutGuichet(monde));
+        this.simuler.setTooltip(new Tooltip("Lancez la simulation"));
+        ajoutActivite.setOnAction(new EcouteurAjoutActivite(this.monde));
+        ajoutGuichet.setOnAction(new EcouteurAjoutGuichet(this.monde));
+        simuler.setOnAction(new EcouteurLancerLaSimulation(this.monde));
         this.setHgap(10);
         this.setVgap(10);
-        this.getChildren().addAll(ajoutActivite,ajoutGuichet);
+        this.getChildren().addAll(ajoutActivite,ajoutGuichet,simuler);
         this.monde.ajouterObservateur(this);
     }
 
