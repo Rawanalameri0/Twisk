@@ -17,10 +17,10 @@ public class TailleComposants {
         return hauteur;
     }
     public int getLargeurGuichet(){
-        return 250;
+        return 200;
     }
 
     public int getHauteurGuichet() {
-        return 70;
+        return 50;
     }
 }
