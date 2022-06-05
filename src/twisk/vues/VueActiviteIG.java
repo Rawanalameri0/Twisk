@@ -9,7 +9,6 @@ import twisk.outils.TailleComposants;
 
 public class VueActiviteIG extends VueEtapeIG implements Observateur{
     private Label label;
-
     /**
      * La constructeur VueActiviteIG
      * @param monde
@@ -18,7 +17,7 @@ public class VueActiviteIG extends VueEtapeIG implements Observateur{
     public VueActiviteIG(MondeIG monde, EtapeIG etape){
         super(monde,etape);
         this.labl=new Label(this.etape.getnomEtape()+": "+ this.etape.getDelai());
-        HBox hBox = new HBox();
+        hBox = new HBox();
         this.setPadding(new Insets(2, 2, 2, 2));
         hBox.setStyle("-fx-border-color: #0059FF; -fx-background-color: #d3d3d3;-fx-background-insets: 0 0 -1 0, 0, 1, 2; -fx-background-radius: 3px, 3px, 2px, 1px;");
         hBox.setPrefWidth(10);
@@ -38,5 +37,10 @@ public class VueActiviteIG extends VueEtapeIG implements Observateur{
     @Override
     public void reagir() {
 
+    }
+
+    @Override
+    public HBox getHBox() {
+        return hBox;
     }
 }

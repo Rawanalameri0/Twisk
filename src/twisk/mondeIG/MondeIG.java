@@ -23,9 +23,8 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> , Observa
     private PointDeControleIG ptchoisi;
     private ArrayList<EtapeIG> etapesSelectionee,entrees,sorties;
     private CorrespondanceEtapes correspondanceEtapes;
-    private GestionnairesClients clients;
+    private Object simulate;
     private SujetObserve observe;
-    private boolean end;
     /**
      * la constructeur MondeIG
      */
@@ -38,7 +37,6 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> , Observa
         entrees = new ArrayList<>();
         sorties = new ArrayList<>();
         nbClients = 6;
-        end =true;
     }
 
     private void verifierMondeIG() throws MondeException{
@@ -49,12 +47,14 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> , Observa
                 throw new MondeException("Le guichet a plus d'un successeur");
             if (!e.isSortie() && e.NbSuccesseur()==0)
                 throw new MondeException("Il existe pas un chemin qui mène vers la sortie");
-            if (e.isGuichet())
-                e.getSuccesseur(0).setActiviteRestreinte(true);
             if (e.isSortie() && e.NbSuccesseur()!=0)
                 throw new MondeException("La sortie ne peut pas avoir des successeurs");
             if (e.isGuichet() && e.isSortie())
                 throw new MondeException("La sortie ne peut pas être un guichet");
+            if (e.isEntree() && e.getSuccesseur(0).isEntree())
+                throw new MondeException("Une entrée ne peut pas avoir son successeur aussi comme entrée");
+            if (e.isGuichet())
+                e.getSuccesseur(0).setActiviteRestreinte(true);
         }
     }
 
@@ -89,15 +89,12 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> , Observa
         try {
             ClassLoaderPerso classloader = new ClassLoaderPerso(ClientTwisk.class.getClassLoader());
             Class<?> simulation = classloader.loadClass("twisk.simulation.Simulation");
-            Object simul= simulation.getDeclaredConstructor().newInstance();
+            simulate= simulation.getDeclaredConstructor().newInstance();
             Method setnbclients = simulation.getDeclaredMethod("setNbClients", int.class);
             Method simuler = simulation.getDeclaredMethod("simuler",twisk.monde.Monde.class);
-            Method gestClient = simulation.getDeclaredMethod("getGestClients");
-            Method isEnd = simulation.getDeclaredMethod("isEnd");
-            setnbclients.invoke(simul,getNbClients());
-            simuler.invoke(simul,monde);
-            clients = (GestionnairesClients) gestClient.invoke(simul);
-            end =(boolean) isEnd.invoke(simul);
+            setnbclients.invoke(simulate,getNbClients());
+            simuler.invoke(simulate,monde);
+            setStart(true);
         } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException |
                  InvocationTargetException e) {
             e.printStackTrace();
@@ -115,12 +112,10 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> , Observa
             i = i+1;
             EtapeIG e= new ActiviteIG(type+i, FI.getidentifiantEtape()+1, taille.getLargeurActivite(),taille.getHauteurActivite() );
             this.Hetapes.put(e.getIdentifiant(), e);
-            notifierObservateurs();
         }
         else if (type.equals("Guichet")){
             EtapeIG et= new GuichetIG(type,FI.getidentifiantEtape()+1,taille.getLargeurGuichet(),taille.getHauteurGuichet());
             this.Hetapes.put(et.getIdentifiant(),et);
-            notifierObservateurs();
         }
     }
 
@@ -165,7 +160,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> , Observa
     /**
      * creation d'arc
      * @param pt
-     * @throws TwiskException
+     * @throws TwiskException twisk exeption lors de la création des arcs
      */
     public void creerarc (PointDeControleIG pt) throws TwiskException{
         if (this.ptchoisi==null){
@@ -294,12 +289,16 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> , Observa
     }
 
     public ArrayList<Client> clients(){
-        return  clients.getClients();
+        GestionnairesClients clients;
+        try {
+            Method gestClient = simulate.getClass().getDeclaredMethod("getGestClients");
+            clients = (GestionnairesClients) gestClient.invoke(simulate);
+        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+        return  Objects.requireNonNull(clients.getClients());
     }
 
-    public boolean isEnd() {
-        return end;
-    }
 
     public int nbEtapesSelectionnes(){
         return etapesSelectionee.size();
@@ -309,5 +308,33 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> , Observa
         for (EtapeIG e: etapesSelectionee)
             e.setSelect(false);
         etapesSelectionee.clear();
+    }
+
+    public void setStart(boolean start){
+        try {
+            Method stimulation = simulate.getClass().getDeclaredMethod("setStart",boolean.class);
+            stimulation.invoke(simulate,start);
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public boolean isStart(){
+        boolean start;
+        try {
+            Method debStimulation = simulate.getClass().getDeclaredMethod("estDebStimulation");
+            start = (boolean) debStimulation.invoke(simulate);
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            throw new RuntimeException(e);
+        }
+        return start;
+    }
+
+    public Object getSimulate() {
+        return simulate;
+    }
+
+    public CorrespondanceEtapes getCorrespondanceEtapes() {
+        return correspondanceEtapes;
     }
 }

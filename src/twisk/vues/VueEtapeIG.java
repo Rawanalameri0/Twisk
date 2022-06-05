@@ -1,5 +1,6 @@
 package twisk.vues;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import twisk.ecouteurs.*;
 import twisk.mondeIG.EtapeIG;
@@ -12,6 +13,7 @@ public abstract class VueEtapeIG extends VBox implements Observateur {
     protected MondeIG monde;
     protected EtapeIG etape;
     protected Label labl;
+    protected HBox hBox;
 
     /**
      * la constructeur VueEtapeIG
@@ -27,7 +29,7 @@ public abstract class VueEtapeIG extends VBox implements Observateur {
         this.setId(etape.getIdentifiant());
         this.setOnMouseClicked(new EcouteurSelection(monde,this));
         this.setOnDragDetected(new EcouteurSetOnDragDetected(monde,this));
-        if(this.etape.isSelect()&& !this.etape.isEntree()&& !this.etape.isSortie()){
+        if(this.etape.isSelect()){
             this.setStyle("-fx-background-color: #1968b8");
         }
     }
@@ -60,6 +62,8 @@ public abstract class VueEtapeIG extends VBox implements Observateur {
             this.setStyle("-fx-border-color: #0059FF; -fx-background-color: #70638a;-fx-background-insets: 0 0 -1 0, 0, 1, 2; -fx-background-radius: 3px, 3px, 2px, 1px;");
         }
    }
+
+   public abstract HBox getHBox();
 
 }
 

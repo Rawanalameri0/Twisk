@@ -10,7 +10,7 @@ import twisk.outils.KitC;
 public class Simulation extends SujetObserve {
     private KitC kitc;
     private int nbClients;
-    private boolean end;
+    private boolean start;
     private GestionnairesClients gestClients;
 
     /**
@@ -21,7 +21,7 @@ public class Simulation extends SujetObserve {
         kitc.creerEnvironement();
         gestClients = new GestionnairesClients(nbClients);
         nbClients =5;
-        end = false ;
+        start = false ;
     }
 
     /**
@@ -35,7 +35,8 @@ public class Simulation extends SujetObserve {
         kitc.compiler();
         kitc.construireLibrairie();
         System.load("/tmp/twisk/libTwisk"+kitc.getCompteur()+".so");
-        end = false;
+        start = true;
+        boolean end = false;
         int nbClientEtape;
         int nbGuichets = monde.nbGuichets();
         int nbEtapes = monde.nbEtapes();
@@ -69,6 +70,7 @@ public class Simulation extends SujetObserve {
                 e.printStackTrace();
             }
         }
+        setStart(false);
         gestClients.nettoyer();
         System.out.println("");
         monde.reset();
@@ -119,7 +121,13 @@ public class Simulation extends SujetObserve {
         return nbClients;
     }
 
-    public boolean isEnd() {
-        return end;
+
+    public boolean estDebStimulation() {
+        return start;
     }
+
+    public void setStart(boolean start) {
+        this.start = start;
+    }
+
 }

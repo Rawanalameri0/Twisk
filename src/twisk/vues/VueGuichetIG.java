@@ -22,7 +22,7 @@ public class VueGuichetIG extends VueEtapeIG implements Observateur{
         super(monde, etape);
        this.labl =new Label(this.etape.getnomEtape()+":" +this.etape.getJetons()+" jetons");
         this.setPadding(new Insets(6, 6, 6, 2));
-        HBox hBox=new HBox();
+        hBox=new HBox();
         ArrayList<HBox> hbox=new ArrayList<>();
         for(int i=0;i<8;i++){
             hbox.add(new HBox());
@@ -38,4 +38,10 @@ public class VueGuichetIG extends VueEtapeIG implements Observateur{
         this.setPrefSize(taille.getLargeurGuichet(),taille.getHauteurGuichet());
         this.getChildren().addAll(labl,hBox);
     }
+
+    @Override
+    public HBox getHBox() {
+        return hBox;
+    }
+
 }
