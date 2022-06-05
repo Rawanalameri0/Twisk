@@ -33,7 +33,5 @@ public class EcouteurArc implements EventHandler<MouseEvent> {
             this.arc.getArc().setSelect(true);
             this.monde.notifierObservateurs();
         }
-
-
     }
 }

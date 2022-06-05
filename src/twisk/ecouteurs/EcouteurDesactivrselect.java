@@ -23,19 +23,13 @@ public class EcouteurDesactivrselect implements EventHandler<ActionEvent> {
     @Override
     public void handle(ActionEvent actionEvent) {
         Iterator<ArcIG> arcIGIterator = monde.iteratorarc();
-        Iterator<EtapeIG> etapeIGIterator = monde.iterator();
         while (arcIGIterator.hasNext()){
             ArcIG arc = arcIGIterator.next();
             if(arc.isSelect()){
                 arc.setSelect(false);
             }
         }
-        while(etapeIGIterator.hasNext()){
-            EtapeIG etape = etapeIGIterator.next();
-            if(etape.isSelect()){
-                etape.setSelect(false);
-            }
-        }
-    this.monde.notifierObservateurs();
+        this.monde.desactiverSelection();
+        this.monde.notifierObservateurs();
     }
 }

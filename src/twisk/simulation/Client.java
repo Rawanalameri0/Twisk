@@ -50,4 +50,5 @@ public class Client {
     public int getRang() {
         return rang;
     }
+
 }

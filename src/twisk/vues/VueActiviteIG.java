@@ -17,7 +17,6 @@ public class VueActiviteIG extends VueEtapeIG implements Observateur{
      */
     public VueActiviteIG(MondeIG monde, EtapeIG etape){
         super(monde,etape);
-        //Label label = new Label("");
         this.labl=new Label(this.etape.getnomEtape()+": "+ this.etape.getDelai());
         HBox hBox = new HBox();
         this.setPadding(new Insets(2, 2, 2, 2));

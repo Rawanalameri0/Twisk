@@ -54,10 +54,10 @@ public abstract class VueEtapeIG extends VBox implements Observateur {
      */
     public void Entree_Sortie(){
         if(!this.etape.isEntree() && this.etape.isSortie()){
-        this.setStyle("-fx-border-color: #0059FF; -fx-background-color: #cebbf4;-fx-background-insets: 0 0 -1 0, 0, 1, 2; -fx-background-radius: 3px, 3px, 2px, 1px;");
-     }
+            this.setStyle("-fx-border-color: #0059FF; -fx-background-color: #cebbf4;-fx-background-insets: 0 0 -1 0, 0, 1, 2; -fx-background-radius: 3px, 3px, 2px, 1px;");
+        }
         if(this.etape.isEntree() && !this.etape.isSortie()){
-        this.setStyle("-fx-border-color: #0059FF; -fx-background-color: #70638a;-fx-background-insets: 0 0 -1 0, 0, 1, 2; -fx-background-radius: 3px, 3px, 2px, 1px;");
+            this.setStyle("-fx-border-color: #0059FF; -fx-background-color: #70638a;-fx-background-insets: 0 0 -1 0, 0, 1, 2; -fx-background-radius: 3px, 3px, 2px, 1px;");
         }
    }
 

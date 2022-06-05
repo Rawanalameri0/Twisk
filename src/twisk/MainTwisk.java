@@ -26,7 +26,6 @@ public class MainTwisk extends Application {
         root.setBottom(vueoutils);
         root.setCenter(vuemonde);
         stage.setScene(new Scene(root, 800, 600));
-        //root.setStyle("-fx-background-color: #bbdefb");
         stage.show();
     }
 

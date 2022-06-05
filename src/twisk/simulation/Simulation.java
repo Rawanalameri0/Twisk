@@ -1,14 +1,16 @@
 package twisk.simulation;
 
 import twisk.monde.Monde;
+import twisk.mondeIG.SujetObserve;
 import twisk.outils.KitC;
 /**
  * Classe Simulation
  * @author IKHRICHI SOUMAYA AL-AMERI RAWAN
  */
-public class Simulation {
+public class Simulation extends SujetObserve {
     private KitC kitc;
     private int nbClients;
+    private boolean end;
     private GestionnairesClients gestClients;
 
     /**
@@ -18,6 +20,8 @@ public class Simulation {
         kitc = new KitC();
         kitc.creerEnvironement();
         gestClients = new GestionnairesClients(nbClients);
+        nbClients =5;
+        end = false ;
     }
 
     /**
@@ -31,7 +35,7 @@ public class Simulation {
         kitc.compiler();
         kitc.construireLibrairie();
         System.load("/tmp/twisk/libTwisk"+kitc.getCompteur()+".so");
-        boolean end = false;
+        end = false;
         int nbClientEtape;
         int nbGuichets = monde.nbGuichets();
         int nbEtapes = monde.nbEtapes();
@@ -101,6 +105,21 @@ public class Simulation {
      * @param nbClients le nombre de clients
      */
     public void setNbClients(int nbClients) {
-        this.nbClients = nbClients;
+        if (nbClients>= 50)
+            this.nbClients= 30;
+        else
+            this.nbClients = nbClients;
+    }
+
+    public GestionnairesClients getGestClients() {
+        return gestClients;
+    }
+
+    public int getNbClients() {
+        return nbClients;
+    }
+
+    public boolean isEnd() {
+        return end;
     }
 }

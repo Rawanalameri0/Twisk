@@ -2,10 +2,8 @@ package twisk.vues;
 
 import javafx.scene.layout.Pane;
 import twisk.ecouteurs.*;
-import twisk.mondeIG.ArcIG;
-import twisk.mondeIG.EtapeIG;
-import twisk.mondeIG.MondeIG;
-import twisk.mondeIG.PointDeControleIG;
+import twisk.mondeIG.*;
+import twisk.simulation.Client;
 
 import java.util.Iterator;
 
@@ -14,6 +12,7 @@ import java.util.Iterator;
  */
 public class VueMondeIG extends Pane implements Observateur {
     private MondeIG monde;
+    private SujetObserve observe;
 
     /**
      * La constructeur Monde
@@ -49,7 +48,6 @@ public class VueMondeIG extends Pane implements Observateur {
             VueArcIG vuearcIG = new VueArcIG(monde,arcIG);
             this.getChildren().add(vuearcIG);
         }
-
         VueEtapeIG vue;
         for (EtapeIG etape:monde){
             if(!etape.isGuichet())
@@ -61,7 +59,13 @@ public class VueMondeIG extends Pane implements Observateur {
                 VuePointDeControleIG vuept=new VuePointDeControleIG(monde,etape,pt);
                 this.getChildren().add(vuept);
             }
-
+        }
+        if (!monde.isEnd()) {
+            for (Client client : monde.clients()) {
+                VueClientIG cl = new VueClientIG(monde, client);
+                this.getChildren().add(cl);
+            }
+            System.out.println("hi client"+monde.clients().toString());
         }
     }
 }

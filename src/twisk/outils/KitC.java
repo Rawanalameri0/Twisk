@@ -66,7 +66,8 @@ public class KitC {
         String commande = "gcc -Wall -fPIC -c /tmp/twisk/client.c -o /tmp/twisk/client.o";
         Runtime runtime = Runtime.getRuntime();
         try {
-            Process p = runtime.exec(commande);
+            Process p;
+            p = runtime.exec(commande);
             p.waitFor();
             // récupération des messages sur la sortie standard et la sortie d’erreur de la commande exécutée
             // à reprendre éventuellement et à adapter à votre code

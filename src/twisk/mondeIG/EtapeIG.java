@@ -242,4 +242,12 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
     public void setActiviteRestreinte(boolean activiteRestreinte) {
         this.activiteRestreinte = activiteRestreinte;
     }
+
+    public int getTemps(){
+        return 0;
+    }
+
+    public int getEcart(){
+        return 0;
+    }
 }

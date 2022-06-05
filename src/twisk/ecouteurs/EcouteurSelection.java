@@ -26,8 +26,5 @@ public class EcouteurSelection implements EventHandler<MouseEvent> {
           this.monde.addEtapeSelect(this.vueEtape.getEtape());
       }
       this.monde.notifierObservateurs();
-
-
-
     }
 }

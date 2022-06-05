@@ -22,10 +22,8 @@ public class VueGuichetIG extends VueEtapeIG implements Observateur{
         super(monde, etape);
        this.labl =new Label(this.etape.getnomEtape()+":" +this.etape.getJetons()+" jetons");
         this.setPadding(new Insets(6, 6, 6, 2));
-        this.setStyle("-fx-border-color: green; -fx-alignment: center;-fx-border-radius: 5; -fx-background-radius: 3px, 3px, 2px, 1px");
         HBox hBox=new HBox();
         ArrayList<HBox> hbox=new ArrayList<>();
-
         for(int i=0;i<8;i++){
             hbox.add(new HBox());
             hbox.get(i).setPadding(new Insets(10,10,10,10));
@@ -33,13 +31,11 @@ public class VueGuichetIG extends VueEtapeIG implements Observateur{
             hBox.getChildren().add(hbox.get(i));
         }
         this.setPadding(new Insets(12,6,8,6));
-        this.getChildren().addAll(labl);
-        this.getChildren().addAll(hBox);
         int x = this.etape.getPosX();
         int y = this.etape.getPosY();
         this.relocate(x,y);
         TailleComposants taille=TailleComposants.getInstance();
         this.setPrefSize(taille.getLargeurGuichet(),taille.getHauteurGuichet());
-
+        this.getChildren().addAll(labl,hBox);
     }
 }

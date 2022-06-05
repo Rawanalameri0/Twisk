@@ -22,15 +22,16 @@ public class EcouteurRenommer implements EventHandler<ActionEvent>,Observateur {
     }
     @Override
     public void handle(ActionEvent actionEvent) {
-        TextInputDialog textInputDialog = new TextInputDialog("renommer");
-        textInputDialog.setHeaderText("Saisie du nouveau nom de l'activité ");
-        Optional<String> res = textInputDialog.showAndWait();
-        res.ifPresent(titre ->{
-            monde.renommer(titre);
+        if (monde.nbEtapesSelectionnes() == 1) {
+            TextInputDialog textInputDialog = new TextInputDialog("renommer");
+            textInputDialog.setHeaderText("Saisie du nouveau nom de l'étape");
+            Optional<String> res = textInputDialog.showAndWait();
+            res.ifPresent(titre -> {
+                monde.renommer(titre);
             });
-
             this.monde.notifierObservateurs();
         }
+    }
 
 
 

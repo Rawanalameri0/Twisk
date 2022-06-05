@@ -1,25 +1,31 @@
 package twisk.mondeIG;
 
+import twisk.ClientTwisk;
 import twisk.exceptions.*;
 import twisk.monde.*;
 import twisk.outils.*;
+import twisk.simulation.Client;
+import twisk.simulation.GestionnairesClients;
 import twisk.simulation.Simulation;
+import twisk.vues.Observateur;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.*;
 
 /**
  * Classe MondeIG
  */
-public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
+public class MondeIG extends SujetObserve implements Iterable<EtapeIG> , Observateur {
     private HashMap<String,EtapeIG> Hetapes;
-    private int i=1;
-    private ArrayList<ArcIG> arcs = new ArrayList<>();
+    private int i=1,nbClients;
+    private ArrayList<ArcIG> arcs;
     private PointDeControleIG ptchoisi;
-    private ArrayList<EtapeIG> etapesSelectionee = new ArrayList<>();
-    private ArrayList<EtapeIG> entrees = new ArrayList<>();
-    private ArrayList <EtapeIG> sorties = new ArrayList<>();
+    private ArrayList<EtapeIG> etapesSelectionee,entrees,sorties;
     private CorrespondanceEtapes correspondanceEtapes;
-
+    private GestionnairesClients clients;
+    private SujetObserve observe;
+    private boolean end;
     /**
      * la constructeur MondeIG
      */
@@ -27,6 +33,12 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
         this.Hetapes= new HashMap<>();
         EtapeIG A = new ActiviteIG("Activite"+i,"0",TailleComposants.getInstance().getLargeurActivite(),TailleComposants.getInstance().getHauteurActivite());
         this.Hetapes.put(A.getIdentifiant(),A);
+        arcs = new ArrayList<>();
+        etapesSelectionee = new ArrayList<>();
+        entrees = new ArrayList<>();
+        sorties = new ArrayList<>();
+        nbClients = 6;
+        end =true;
     }
 
     private void verifierMondeIG() throws MondeException{
@@ -41,6 +53,8 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
                 e.getSuccesseur(0).setActiviteRestreinte(true);
             if (e.isSortie() && e.NbSuccesseur()!=0)
                 throw new MondeException("La sortie ne peut pas avoir des successeurs");
+            if (e.isGuichet() && e.isSortie())
+                throw new MondeException("La sortie ne peut pas être un guichet");
         }
     }
 
@@ -51,9 +65,9 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
             if (etapeIG.isGuichet())
                 correspondanceEtapes.ajouter(etapeIG,new Guichet(etapeIG.getnomEtape(),etapeIG.getJetons()));
             if (etapeIG.isActivite() && !etapeIG.isActiviteRestreinte())
-                correspondanceEtapes.ajouter(etapeIG,new Activite(etapeIG.getnomEtape()));
+                correspondanceEtapes.ajouter(etapeIG,new Activite(etapeIG.getnomEtape(),etapeIG.getTemps(),etapeIG.getEcart()));
             if (etapeIG.isActiviteRestreinte())
-                correspondanceEtapes.ajouter(etapeIG,new ActiviteRestreinte(etapeIG.getnomEtape()));
+                correspondanceEtapes.ajouter(etapeIG,new ActiviteRestreinte(etapeIG.getnomEtape(),etapeIG.getTemps(),etapeIG.getEcart()));
         }
         for (EtapeIG etapeIG: Hetapes.values()) {
             Etape et = correspondanceEtapes.get(etapeIG);
@@ -72,9 +86,22 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
     public void simuler() throws MondeException{
         verifierMondeIG();
         Monde monde=creerMonde();
-        Simulation simulation= new Simulation();
-        simulation.setNbClients(5);
-        simulation.simuler(monde);
+        try {
+            ClassLoaderPerso classloader = new ClassLoaderPerso(ClientTwisk.class.getClassLoader());
+            Class<?> simulation = classloader.loadClass("twisk.simulation.Simulation");
+            Object simul= simulation.getDeclaredConstructor().newInstance();
+            Method setnbclients = simulation.getDeclaredMethod("setNbClients", int.class);
+            Method simuler = simulation.getDeclaredMethod("simuler",twisk.monde.Monde.class);
+            Method gestClient = simulation.getDeclaredMethod("getGestClients");
+            Method isEnd = simulation.getDeclaredMethod("isEnd");
+            setnbclients.invoke(simul,getNbClients());
+            simuler.invoke(simul,monde);
+            clients = (GestionnairesClients) gestClient.invoke(simul);
+            end =(boolean) isEnd.invoke(simul);
+        } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException |
+                 InvocationTargetException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -204,14 +231,17 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
      */
     public void ajoutsortie(){
         for (EtapeIG etape : etapesSelectionee){
-            if(!entrees.contains(etape)){
+            if(!sorties.contains(etape)){
                 etape.setSortie(true);
                 etape.setSelect(false);
                 this.sorties.add(etape);
             }else {
+                etape.setSortie(false);
+                etape.setSelect(false);
                 sorties.remove(etape);
             }
         }
+        etapesSelectionee.clear();
     }
 
     /**
@@ -224,10 +254,12 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
                 etape.setSelect(false);
                 this.entrees.add(etape);
             }else {
+                etape.setEntree(false);
+                etape.setSelect(false);
                 entrees.remove(etape);
             }
-
         }
+        etapesSelectionee.clear();
     }
 
 
@@ -248,4 +280,34 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
         this.etapesSelectionee.get(0).setNbJetons(nbJetons);
     }
 
+    @Override
+    public void reagir() {
+        notifierObservateurs();
+    }
+
+    public void setNbClients(int nbClients) {
+        this.nbClients = nbClients;
+    }
+
+    public int getNbClients() {
+        return nbClients;
+    }
+
+    public ArrayList<Client> clients(){
+        return  clients.getClients();
+    }
+
+    public boolean isEnd() {
+        return end;
+    }
+
+    public int nbEtapesSelectionnes(){
+        return etapesSelectionee.size();
+    }
+
+    public void desactiverSelection(){
+        for (EtapeIG e: etapesSelectionee)
+            e.setSelect(false);
+        etapesSelectionee.clear();
+    }
 }
