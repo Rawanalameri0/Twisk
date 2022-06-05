@@ -42,7 +42,6 @@ public class VueMondeIG extends Pane implements Observateur {
     }
 
     public void clientDeChaqueEtape(HBox box,EtapeIG etape){
-        System.out.println("je rentre dans la fonction");
         if (monde.getSimulate() != null){
             if (monde.isStart()){
                 System.out.println("je commence la simulation");
