@@ -17,9 +17,10 @@ public class VueActiviteIG extends VueEtapeIG implements Observateur{
     public VueActiviteIG(MondeIG monde, EtapeIG etape){
         super(monde,etape);
         this.labl=new Label(this.etape.getnomEtape()+": "+ this.etape.getDelai());
+        this.labl.setStyle("-fx-font-family: Calibri ;-fx-font-size:14 ; -fx-font-weight: bold" );
         hBox = new HBox();
         this.setPadding(new Insets(2, 2, 2, 2));
-        hBox.setStyle("-fx-border-color: #0059FF; -fx-background-color: #d3d3d3;-fx-background-insets: 0 0 -1 0, 0, 1, 2; -fx-background-radius: 3px, 3px, 2px, 1px;");
+        hBox.setStyle("-fx-border-color: #006DF0; -fx-background-color: white;-fx-background-insets: 0 0 -1 0, 0, 1, 2; -fx-background-radius: 3px, 3px, 2px, 1px;");
         hBox.setPrefWidth(10);
         hBox.setPrefHeight(40);
         this.setPadding(new Insets(8,6,8,6));

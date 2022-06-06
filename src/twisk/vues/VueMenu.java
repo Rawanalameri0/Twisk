@@ -47,7 +47,7 @@ public class VueMenu extends MenuBar implements Observateur {
         edition.getItems().addAll(supprimer,renommer,effacerselection);
         Monde.getItems().addAll(entree,sortie);
         Parametres.getItems().addAll(delai,ecrattemps,nbJetons);
-        this.setStyle("-fx-font-weight: bold; -fx-text-fill: white; -fx-border-color: #062047;-fx-background-color:#3e7caf");
+        this.setStyle("-fx-font-weight: bold; -fx-text-fill: white");
         this.getMenus().addAll(fichier,edition,Monde,Parametres);
         this.monde.ajouterObservateur(this);
     }
