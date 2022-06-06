@@ -1,9 +1,12 @@
 package twisk.vues;
-
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
-import twisk.mondeIG.*;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
+import twisk.mondeIG.EtapeIG;
+import twisk.mondeIG.MondeIG;
 import twisk.outils.TailleComposants;
 
 
@@ -28,23 +31,44 @@ public class VueActiviteIG extends VueEtapeIG implements Observateur{
         int x = this.etape.getPosX();
         int y = this.etape.getPosY();
         this.relocate(x,y);
-        this.getChildren().addAll(labl,hBox);
         TailleComposants taille=TailleComposants.getInstance();
         this.setPrefSize(taille.getLargeurActivite(),taille.getHauteurActivite());
+        Entree_Sortie();
 
-    }
-    @Override
-    public void setClient(VueClientIG vue){
-        this.getChildren().clear();
-        hBox.getChildren().addAll(vue);
-        this.getChildren().addAll(labl,hBox);
-        monde.notifierObservateurs();
     }
 
 
 
     @Override
     public void reagir() {
+
+    }
+    public void Entree_Sortie(){
+        if( this.etape.isSortie()){
+            HBox h = new HBox();
+            Circle c = new Circle(10);
+            Image img= new Image(getClass().getResourceAsStream(("/images/sortie.png")),40,40,true,true);
+            c.setFill(new ImagePattern(img));
+            h.getChildren().addAll(c,labl);
+            this.getChildren().addAll(h,hBox);
+
+        }
+        if(this.etape.isEntree() ){
+            HBox h = new HBox();
+            Circle c = new Circle(10);
+            Image img= new Image(getClass().getResourceAsStream(("/images/entrer.png")),40,40,true,true);
+            c.setFill(new ImagePattern(img));
+            h.getChildren().addAll(c,labl);
+            this.getChildren().addAll(h,hBox);
+        }
+        if(this.etape.isSelect()){
+            this.setStyle("-fx-border-color: #1968b8; -fx-background-color: #cebbf4;-fx-background-insets: 0 0 -1 0, 0, 1, 2; -fx-background-radius: 3px, 3px, 2px, 1px;");
+            this.getChildren().addAll(labl,hBox);
+        }
+        else if(!etape.isEntree() && !etape.isSortie() && !etape.isSelect()){
+            this.setStyle("-fx-border-color: #0059FF; -fx-background-color:white ;-fx-background-insets: 0 0 -1 0, 0, 1, 2; -fx-background-radius: 3px, 3px, 2px, 1px;");
+            this.getChildren().addAll(labl,hBox);
+        }
 
     }
 

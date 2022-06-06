@@ -1,7 +1,12 @@
 package twisk.vues;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import twisk.ecouteurs.*;
 import twisk.mondeIG.EtapeIG;
 import twisk.mondeIG.MondeIG;
@@ -25,13 +30,10 @@ public abstract class VueEtapeIG extends VBox implements Observateur {
         this.etape=etape;
         this.labl=new Label(this.etape.getnomEtape()+":" );
         this.setStyle("-fx-border-color: blue; -fx-background-color: white;-fx-alignment: center;-fx-background-insets: 0 0 -1 0, 0, 1, 2;-fx-border-radius: 5; -fx-background-radius: 3px, 3px, 2px, 1px");
-        this.Entree_Sortie();
         this.setId(etape.getIdentifiant());
         this.setOnMouseClicked(new EcouteurSelection(monde,this));
         this.setOnDragDetected(new EcouteurSetOnDragDetected(monde,this));
-        if(this.etape.isSelect()){
-            this.setStyle("-fx-background-color: #1968b8");
-        }
+
     }
 
 
@@ -47,17 +49,7 @@ public abstract class VueEtapeIG extends VBox implements Observateur {
         return etape;
     }
 
-    /**
-     * verifier si cest une entree ou sortie et change le couleur
-     */
-    public void Entree_Sortie(){
-        if(!this.etape.isEntree() && this.etape.isSortie()){
-            this.setStyle("-fx-border-color: #0059FF; -fx-background-color: #cebbf4;-fx-background-insets: 0 0 -1 0, 0, 1, 2; -fx-background-radius: 3px, 3px, 2px, 1px;");
-        }
-        if(this.etape.isEntree() && !this.etape.isSortie()){
-            this.setStyle("-fx-border-color: #0059FF; -fx-background-color: #70638a;-fx-background-insets: 0 0 -1 0, 0, 1, 2; -fx-background-radius: 3px, 3px, 2px, 1px;");
-        }
-   }
+
 
    public HBox getHBox(){
         return null;
