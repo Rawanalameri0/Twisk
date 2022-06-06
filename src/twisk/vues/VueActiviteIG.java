@@ -1,14 +1,15 @@
 package twisk.vues;
+
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import twisk.mondeIG.EtapeIG;
-import twisk.mondeIG.MondeIG;
+import twisk.mondeIG.*;
 import twisk.outils.TailleComposants;
 
 
 public class VueActiviteIG extends VueEtapeIG implements Observateur{
     private Label label;
+    private HBox hBox;
     /**
      * La constructeur VueActiviteIG
      * @param monde
@@ -31,6 +32,13 @@ public class VueActiviteIG extends VueEtapeIG implements Observateur{
         TailleComposants taille=TailleComposants.getInstance();
         this.setPrefSize(taille.getLargeurActivite(),taille.getHauteurActivite());
 
+    }
+    @Override
+    public void setClient(VueClientIG vue){
+        this.getChildren().clear();
+        hBox.getChildren().addAll(vue);
+        this.getChildren().addAll(labl,hBox);
+        monde.notifierObservateurs();
     }
 
 

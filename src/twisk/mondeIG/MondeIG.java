@@ -1,12 +1,10 @@
 package twisk.mondeIG;
 
-import twisk.ClientTwisk;
+import javafx.concurrent.Task;
 import twisk.exceptions.*;
 import twisk.monde.*;
 import twisk.outils.*;
-import twisk.simulation.Client;
-import twisk.simulation.GestionnairesClients;
-import twisk.simulation.Simulation;
+import twisk.simulation.*;
 import twisk.vues.Observateur;
 
 import java.lang.reflect.InvocationTargetException;
@@ -23,7 +21,8 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> , Observa
     private PointDeControleIG ptchoisi;
     private ArrayList<EtapeIG> etapesSelectionee,entrees,sorties;
     private CorrespondanceEtapes correspondanceEtapes;
-    private Object simulate;
+    private transient Object simulate ;
+    //private boolean start;
     private SujetObserve observe;
     /**
      * la constructeur MondeIG
@@ -36,6 +35,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> , Observa
         etapesSelectionee = new ArrayList<>();
         entrees = new ArrayList<>();
         sorties = new ArrayList<>();
+        //start=false;
         nbClients = 6;
     }
 
@@ -45,7 +45,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> , Observa
             EtapeIG e=iter.next();
             if (e.isGuichet() && e.NbSuccesseur()>1)
                 throw new MondeException("Le guichet a plus d'un successeur");
-            if (!e.isSortie() && e.NbSuccesseur()==0)
+            if ((!e.isSortie() && e.NbSuccesseur()==0))
                 throw new MondeException("Il existe pas un chemin qui mène vers la sortie");
             if (e.isSortie() && e.NbSuccesseur()!=0)
                 throw new MondeException("La sortie ne peut pas avoir des successeurs");
@@ -84,21 +84,35 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> , Observa
     }
 
     public void simuler() throws MondeException{
+        MondeIG mondeIG = this;
         verifierMondeIG();
         Monde monde=creerMonde();
-        try {
-            ClassLoaderPerso classloader = new ClassLoaderPerso(ClientTwisk.class.getClassLoader());
-            Class<?> simulation = classloader.loadClass("twisk.simulation.Simulation");
-            simulate= simulation.getDeclaredConstructor().newInstance();
-            Method setnbclients = simulation.getDeclaredMethod("setNbClients", int.class);
-            Method simuler = simulation.getDeclaredMethod("simuler",twisk.monde.Monde.class);
-            setnbclients.invoke(simulate,getNbClients());
-            simuler.invoke(simulate,monde);
-            setStart(true);
-        } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException |
-                 InvocationTargetException e) {
-            e.printStackTrace();
-        }
+        Task<Void> task = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                try {
+                    ClassLoaderPerso classloader = new ClassLoaderPerso(MondeIG.class.getClassLoader());
+                    Class<?> simulation = classloader.loadClass("twisk.simulation.Simulation");
+                    simulate= simulation.getDeclaredConstructor().newInstance();
+                    notifierObservateurs();
+                    Method setnbclients = simulation.getDeclaredMethod("setNbClients", int.class);
+                    notifierObservateurs();
+                    Method simuler = simulation.getDeclaredMethod("simuler",twisk.monde.Monde.class);
+                    //Method ajouterObserv = simulation.getDeclaredMethod("ajouterObservateur",twisk.vues.Observateur.class);
+                    setnbclients.invoke(simulate,getNbClients());
+                    //ajouterObserv.invoke(simulate,mondeIG);
+                    simuler.invoke(simulate,monde);
+                    setStart(true);
+                    //notifierObservateurs();
+                } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException |
+                         InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+                mondeIG.notifierObservateurs();
+                return null;
+            }
+        };
+        ThreadsManager.getInstance().lancer(task);
     }
 
     /**
@@ -202,6 +216,8 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> , Observa
     public void removeEtapes() {
         for (EtapeIG etape : etapesSelectionee) {
             this.Hetapes.remove(etape.getIdentifiant());
+            this.entrees.remove(etape);
+            this.sorties.remove(etape);
         }
         etapesSelectionee.clear();
     }
@@ -314,13 +330,14 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> , Observa
         try {
             Method stimulation = simulate.getClass().getDeclaredMethod("setStart",boolean.class);
             stimulation.invoke(simulate,start);
+            //this.start = start;
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             throw new RuntimeException(e);
         }
     }
 
     public boolean isStart(){
-        boolean start;
+        boolean start = false;
         try {
             Method debStimulation = simulate.getClass().getDeclaredMethod("estDebStimulation");
             start = (boolean) debStimulation.invoke(simulate);

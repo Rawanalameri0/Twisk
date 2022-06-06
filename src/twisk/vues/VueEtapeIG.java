@@ -6,6 +6,8 @@ import twisk.ecouteurs.*;
 import twisk.mondeIG.EtapeIG;
 import twisk.mondeIG.MondeIG;
 
+import java.util.ArrayList;
+
 /**
  * Classe abstract VueEtapeIG
  */
@@ -13,8 +15,6 @@ public abstract class VueEtapeIG extends VBox implements Observateur {
     protected MondeIG monde;
     protected EtapeIG etape;
     protected Label labl;
-    protected HBox hBox;
-
     /**
      * la constructeur VueEtapeIG
      * @param monde
@@ -47,10 +47,6 @@ public abstract class VueEtapeIG extends VBox implements Observateur {
         return etape;
     }
 
-   /* public void setEtape(EtapeIG etape) {
-        this.etape = etape;
-    }*/
-
     /**
      * verifier si cest une entree ou sortie et change le couleur
      */
@@ -63,7 +59,17 @@ public abstract class VueEtapeIG extends VBox implements Observateur {
         }
    }
 
-   public abstract HBox getHBox();
+   public HBox getHBox(){
+        return null;
+   }
+
+   public ArrayList<HBox> getHboxes(){
+        return null;
+   }
+
+   public void setClient(VueClientIG vue){
+
+   }
 
 }
 

@@ -13,7 +13,7 @@ public class VueClientIG extends Circle implements Observateur{
         this.monde=monde;
         this.client=client;
         this.setRadius(5);
-        this.setFill(Color.color(Math.random(), Math.random(), Math.random()));
+        this.setFill(Color.GREEN);
     }
 
     @Override

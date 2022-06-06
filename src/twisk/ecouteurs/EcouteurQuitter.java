@@ -21,6 +21,5 @@ public class EcouteurQuitter implements EventHandler<ActionEvent> {
     @Override
     public void handle(ActionEvent actionEvent) {
         Platform.exit();
-
     }
 }

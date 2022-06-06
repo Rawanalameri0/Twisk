@@ -1,11 +1,9 @@
 package twisk.vues;
 
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.Polyline;
+import javafx.scene.shape.*;
 import twisk.ecouteurs.EcouteurArc;
-import twisk.mondeIG.ArcIG;
-import twisk.mondeIG.MondeIG;
+import twisk.mondeIG.*;
 
 /**
  * Classe VueArcIG

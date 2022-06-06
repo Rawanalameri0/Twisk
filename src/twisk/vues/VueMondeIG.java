@@ -1,11 +1,10 @@
 package twisk.vues;
 
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
+import javafx.application.Platform;
+import javafx.scene.layout.*;
 import twisk.ecouteurs.*;
 import twisk.mondeIG.*;
 import twisk.simulation.Client;
-
 import java.util.Iterator;
 
 /**
@@ -41,17 +40,17 @@ public class VueMondeIG extends Pane implements Observateur {
         this.monde.ajouterObservateur(this);
     }
 
-    public void clientDeChaqueEtape(HBox box,EtapeIG etape){
+    public void clientDeChaqueEtape(VueEtapeIG v,EtapeIG etape){
         if (monde.getSimulate() != null){
             if (monde.isStart()){
-                System.out.println("je commence la simulation");
+                System.out.println(monde.clients());
                 for (Client cl: monde.clients()){
-                    if (monde.getCorrespondanceEtapes().get(etape).getNumero()== cl.getNumeroClient()){
+                    if (monde.getCorrespondanceEtapes().get(etape).getNumero() == cl.getEtape().getNumero()){
                         VueClientIG vue = new VueClientIG(monde,cl);
-                        box.getChildren().add(vue);
+                        System.out.println("x "+vue.getCenterX()+"y "+vue.getCenterY());
+                        v.setClient(vue);
                     }
                 }
-                System.out.println(monde.clients().toString());
             }
         }
     }
@@ -59,28 +58,35 @@ public class VueMondeIG extends Pane implements Observateur {
 
     @Override
     public void reagir() {
-        this.getChildren().clear();
-        Iterator<ArcIG> it = monde.iteratorarc();
-        while(it.hasNext()){
-            ArcIG arcIG = it.next();
-            VueArcIG vuearcIG = new VueArcIG(monde,arcIG);
-            this.getChildren().add(vuearcIG);
-        }
-        VueEtapeIG vue;
-        for (EtapeIG etape:monde){
-            if(!etape.isGuichet()) {
-                vue = new VueActiviteIG(monde, etape);
-                clientDeChaqueEtape(vue.getHBox(),etape);
-            }
-            else {
-                vue = new VueGuichetIG(monde, etape);
-                //clientDeChaqueEtape(vue.hBox,etape);
-            }
-            this.getChildren().add(vue);
-            for (PointDeControleIG pt:etape){
-                VuePointDeControleIG vuept=new VuePointDeControleIG(monde,etape,pt);
-                this.getChildren().add(vuept);
-            }
+        Runnable command = () -> {
+                this.getChildren().clear();
+                Iterator<ArcIG> it = monde.iteratorarc();
+                while(it.hasNext()){
+                    ArcIG arcIG = it.next();
+                    VueArcIG vuearcIG = new VueArcIG(monde,arcIG);
+                    this.getChildren().add(vuearcIG);
+                }
+                VueEtapeIG vue;
+                for (EtapeIG etape:monde){
+                    if(!etape.isGuichet()) {
+                        vue = new VueActiviteIG(monde, etape);
+                        clientDeChaqueEtape(vue,etape);
+                    }
+                    else {
+                        vue = new VueGuichetIG(monde, etape);
+                        //clientDeChaqueEtape(vue.hBox,etape);
+                    }
+                    this.getChildren().add(vue);
+                    for (PointDeControleIG pt:etape){
+                        VuePointDeControleIG vuept=new VuePointDeControleIG(monde,etape,pt);
+                        this.getChildren().add(vuept);
+                    }
+                }
+        };
+        if (Platform.isFxApplicationThread()){
+            command.run();
+        }else {
+            Platform.runLater(command);
         }
     }
 }

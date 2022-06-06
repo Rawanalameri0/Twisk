@@ -1,18 +1,15 @@
 package twisk.vues;
 
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import twisk.mondeIG.EtapeIG;
-import twisk.mondeIG.MondeIG;
+import twisk.mondeIG.*;
 import twisk.outils.TailleComposants;
-
 import java.util.ArrayList;
 
 public class VueGuichetIG extends VueEtapeIG implements Observateur{
     private Label labl;
+    private ArrayList<HBox> hbox;
     /**
      * la constructeur VueEtapeIG
      * @param monde
@@ -22,8 +19,8 @@ public class VueGuichetIG extends VueEtapeIG implements Observateur{
         super(monde, etape);
        this.labl =new Label(this.etape.getnomEtape()+":" +this.etape.getJetons()+" jetons");
         this.setPadding(new Insets(6, 6, 6, 2));
-        hBox=new HBox();
-        ArrayList<HBox> hbox=new ArrayList<>();
+        HBox hBox=new HBox();
+        hbox=new ArrayList<>();
         for(int i=0;i<8;i++){
             hbox.add(new HBox());
             hbox.get(i).setPadding(new Insets(10,10,10,10));
@@ -39,9 +36,8 @@ public class VueGuichetIG extends VueEtapeIG implements Observateur{
         this.getChildren().addAll(labl,hBox);
     }
 
-    @Override
-    public HBox getHBox() {
-        return hBox;
+    public ArrayList<HBox> getHBoxes() {
+        return hbox;
     }
 
 }

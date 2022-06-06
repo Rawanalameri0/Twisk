@@ -1,16 +1,14 @@
 package twisk.vues;
 
-import javafx.geometry.Insets;
+import javafx.application.Platform;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Tooltip;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.*;
+import javafx.scene.image.*;
 import javafx.scene.layout.TilePane;
-import twisk.ecouteurs.EcouteurAjoutActivite;
-import twisk.ecouteurs.EcouteurAjoutGuichet;
-import twisk.ecouteurs.EcouteurLancerLaSimulation;
+import twisk.ecouteurs.*;
+import twisk.exceptions.MondeException;
 import twisk.mondeIG.MondeIG;
+import twisk.outils.ThreadsManager;
 
 
 /**
@@ -49,21 +47,61 @@ public class VueOutils extends TilePane implements Observateur {
         simuler.setGraphic(icone3);
         icone3.setFitHeight(40);
         icone3.setFitWidth(40);
+        this.simuler.setTooltip(new Tooltip("Lancez la simulation"));
         this.ajoutActivite.setTooltip( new Tooltip("Ajoutez une activite"));
         this.ajoutGuichet.setTooltip(new Tooltip("Ajoutez un guichet"));
-        this.simuler.setTooltip(new Tooltip("Lancez la simulation"));
         ajoutActivite.setOnAction(new EcouteurAjoutActivite(this.monde));
         ajoutGuichet.setOnAction(new EcouteurAjoutGuichet(this.monde));
-       // simuler.setOnAction(new EcouteurLancerLaSimulation(this.monde));
+        simuler.setOnAction(new EcouteurLancerLaSimulation(this.monde));
         this.setHgap(2);
         this.setVgap(2);
         this.setAlignment(Pos.CENTER);
         this.getChildren().addAll(ajoutActivite,ajoutGuichet,simuler);
         this.monde.ajouterObservateur(this);
+        reagir();
     }
 
     @Override
     public void reagir() {
-
+        Runnable c = () ->{
+            this.getChildren().clear();
+            if (monde.getSimulate() != null) {
+                if (monde.isStart()) {
+                    ajoutActivite.setDisable(true);
+                    ajoutGuichet.setDisable(true);
+                    simuler.setStyle("-fx-border-color: transparent ; -fx-background-color: transparent");
+                    Image image3 = new Image(getClass().getResourceAsStream(("/images/pause.png")), 40, 40, true, true);
+                    ImageView icone3 = new ImageView(image3);
+                    simuler.setGraphic(icone3);
+                    simuler.setOnAction(actionEvent -> {
+                        ThreadsManager.getInstance().detruireTout();
+                        monde.setStart(false);
+                        monde.notifierObservateurs();
+                    });
+                }else {
+                    ajoutGuichet.setDisable(false);
+                    ajoutActivite.setDisable(false);
+                    simuler.setStyle("-fx-border-color: transparent ; -fx-background-color: transparent");
+                    Image image3 = new Image(getClass().getResourceAsStream(("/images/start.png")), 40, 40, true, true);
+                    ImageView icone3 = new ImageView(image3);
+                    simuler.setGraphic(icone3);
+                    simuler.setOnAction(actionEvent -> {
+                        try {
+                            //ThreadsManager.getInstance().detruireTout();
+                            monde.setStart(false);
+                            monde.simuler();
+                        } catch (MondeException e) {
+                            throw new RuntimeException(e);
+                        }
+                        monde.notifierObservateurs();
+                    });
+                }
+            }
+            this.getChildren().addAll(ajoutActivite,ajoutGuichet,simuler);
+        };
+        if (Platform.isFxApplicationThread())
+            c.run();
+        else
+            Platform.runLater(c);
     }
 }

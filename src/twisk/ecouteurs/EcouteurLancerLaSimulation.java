@@ -1,12 +1,16 @@
 package twisk.ecouteurs;
 
 import javafx.animation.PauseTransition;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.control.Alert;
+import javafx.event.*;
+import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import twisk.exceptions.MondeException;
 import twisk.mondeIG.MondeIG;
+import twisk.outils.ThreadsManager;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 public class EcouteurLancerLaSimulation implements EventHandler<ActionEvent> {
     private MondeIG monde;
@@ -20,13 +24,30 @@ public class EcouteurLancerLaSimulation implements EventHandler<ActionEvent> {
         try {
             monde.simuler();
         } catch (MondeException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText(e.getMessage());
-            alert.setHeaderText("Erreur pendant creation d'arc");
+            Alert alert=new Alert(Alert.AlertType.ERROR);
+            VBox dialogPaneContent=new VBox();
+            alert.setTitle("Monde Exceptions");
+            alert.setHeaderText("Erreur lors de la création du monde");
+            Label l=new Label("Stack Trace");
+            TextArea text=new TextArea();
+            text.setText(setTextStackTrace(e));
+            dialogPaneContent.getChildren().addAll(l,text);
+            alert.getDialogPane().setContent(dialogPaneContent);
             alert.show();
-            PauseTransition pauseTransition = new PauseTransition(Duration.seconds(10));
-            pauseTransition.setOnFinished(action -> alert.close());
-            pauseTransition.play();
+            PauseTransition pause=new PauseTransition(Duration.seconds(5));
+            pause.play();
+            pause.setOnFinished(fin->alert.close());
         }
+    }
+
+    /**
+     * @param e exception
+     * @return renvoie les details de l'exception en chaîne de caractères
+     */
+    private String setTextStackTrace(MondeException e){
+        StringWriter s=new StringWriter();
+        PrintWriter p=new PrintWriter(s);
+        e.printStackTrace(p);
+        return s.toString();
     }
 }

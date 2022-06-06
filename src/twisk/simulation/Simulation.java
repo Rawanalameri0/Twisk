@@ -1,5 +1,6 @@
 package twisk.simulation;
 
+import javafx.concurrent.Task;
 import twisk.monde.Monde;
 import twisk.mondeIG.SujetObserve;
 import twisk.outils.KitC;
@@ -35,32 +36,40 @@ public class Simulation extends SujetObserve {
         kitc.compiler();
         kitc.construireLibrairie();
         System.load("/tmp/twisk/libTwisk"+kitc.getCompteur()+".so");
-        start = true;
-        boolean end = false;
+        setStart(true);
+        notifierObservateurs();
         int nbClientEtape;
         int nbGuichets = monde.nbGuichets();
         int nbEtapes = monde.nbEtapes();
         int[] tabJetons = monde.getTabJetons();
         int[] tabClients = start_simulation(nbEtapes, nbGuichets, nbClients, tabJetons);
-        gestClients.setClients(tabClients);
+        int[] tClients = new int[getNbClients()];
+        notifierObservateurs();
         System.out.printf("Les clients: ");
         for (int i = 0; i < nbClients; i++) {
             System.out.printf(" " + tabClients[i] + " ");
+            tClients[i] = tabClients[i];
         }
+        gestClients.setClients(tClients);
         System.out.println("\n \n");
         int[] EmplacementClient;
-        while (!end) {
+        while (start) {
             EmplacementClient = ou_sont_les_clients(nbEtapes, nbClients);
+            notifierObservateurs();
             for (int nbClient = 0, etape = 0; etape < nbEtapes; ++nbClient, ++etape) {
                 nbClientEtape = EmplacementClient[nbClient];
                 System.out.printf("\nétape " + etape + " (" + monde.getNomDeEtape(etape) + ") " + nbClientEtape + " clients :");
                 for (int c = 1; c <= nbClientEtape; c++) {
                     System.out.printf(" " + EmplacementClient[nbClient + c] + " ");
                     gestClients.allerA(EmplacementClient[nbClient + c], monde.getEtape(etape), c);
+                    notifierObservateurs();
                 }
                 nbClient += nbClients;
                 if (etape == 1) {
-                    end = nbClientEtape == nbClients;
+                    if (nbClientEtape == nbClients){
+                        start =false;
+                        notifierObservateurs();
+                    }
                 }
             }
             System.out.println("");
@@ -71,6 +80,7 @@ public class Simulation extends SujetObserve {
             }
         }
         setStart(false);
+        notifierObservateurs();
         gestClients.nettoyer();
         System.out.println("");
         monde.reset();
