@@ -65,7 +65,7 @@ public class VueOutils extends TilePane implements Observateur {
     public void reagir() {
         Runnable c = () ->{
             this.getChildren().clear();
-            if (monde.getSimulate() != null) {
+            //if (monde.getSimulate() != null) {
                 if (monde.isStart()) {
                     ajoutActivite.setDisable(true);
                     ajoutGuichet.setDisable(true);
@@ -85,18 +85,9 @@ public class VueOutils extends TilePane implements Observateur {
                     Image image3 = new Image(getClass().getResourceAsStream(("/images/start.png")), 40, 40, true, true);
                     ImageView icone3 = new ImageView(image3);
                     simuler.setGraphic(icone3);
-                    simuler.setOnAction(actionEvent -> {
-                        try {
-                            //ThreadsManager.getInstance().detruireTout();
-                            monde.setStart(false);
-                            monde.simuler();
-                        } catch (MondeException e) {
-                            throw new RuntimeException(e);
-                        }
-                        monde.notifierObservateurs();
-                    });
+                    simuler.setOnAction(new EcouteurLancerLaSimulation(monde));
                 }
-            }
+            //}
             this.getChildren().addAll(ajoutActivite,ajoutGuichet,simuler);
         };
         if (Platform.isFxApplicationThread())

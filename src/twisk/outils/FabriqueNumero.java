@@ -51,6 +51,9 @@ public class FabriqueNumero {
         cptSemaphore=0;
     }
 
+    /**
+     * @return le compteur de la librairie Twisk
+     */
     public int getCptLibTwisk() {
         cptLibTwisk++;
         return cptLibTwisk;

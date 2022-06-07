@@ -59,11 +59,17 @@ public class GestionnairesClients implements Iterable<Client>{
         }
     }
 
+    /**
+     * @return l'iterator des clients
+     */
     @Override
     public Iterator<Client> iterator() {
         return clients.iterator();
     }
 
+    /**
+     * @return la liste des clients
+     */
     public ArrayList<Client> getClients() {
         return clients;
     }

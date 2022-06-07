@@ -12,8 +12,10 @@ public class VueClientIG extends Circle implements Observateur{
     public VueClientIG(MondeIG monde,Client client){
         this.monde=monde;
         this.client=client;
-        this.setRadius(5);
-        this.setFill(Color.GREEN);
+        this.setRadius(6);
+        //this.setCenterX(monde.getCorrespondanceEtapes().getEtapeIG(client.getEtape()).getPosX());
+        //this.setCenterY(monde.getCorrespondanceEtapes().getEtapeIG(client.getEtape()).getPosY());
+        this.setFill(Color.color(Math.random(),Math.random(),Math.random()));
     }
 
     @Override

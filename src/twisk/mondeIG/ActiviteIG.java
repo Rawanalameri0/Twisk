@@ -34,12 +34,12 @@ public class ActiviteIG extends EtapeIG{
     }
 
     @Override
-    public boolean isActivite(){
+    public boolean estUneActivite(){
        return true;
     }
 
     @Override
-    public boolean isActiviteRestreinte(){
+    public boolean estUneActiviteRestreinte(){
        return activiteRestreinte;
     }
 

@@ -165,8 +165,11 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
         initialiserPointsDeControle();
     }
 
+    /**
+     * initialisation des points de contrôles de l'étape
+     */
     public void initialiserPointsDeControle(){
-        if (this.isGuichet()){
+        if (this.estUnGuichet()){
             tabpts.add(0,new PointDeControleIG("0",this, posX,posY+hauteur/2));
             tabpts.add(1,new PointDeControleIG("1",this, posX+largeur,posY+hauteur/2));
         }else {
@@ -207,46 +210,85 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
     public int getJetons(){
         return 0;
     }
-    public boolean isGuichet(){
+
+    /**
+     * @return vrai si l'etapeIG est un guichet
+     */
+    public boolean estUnGuichet(){
         return false;
     }
 
+    /**
+     * ajoute l'étape donné en paramètre comme successeur
+     * @param e l'étape successeur
+     */
     public void ajouterSucesseurs(EtapeIG e){
         successeurs.add(e);
     }
 
+    /**
+     * supprimer le successeur
+     * @param e l'étape successeur
+     */
     public void supprimerSuccesseur(EtapeIG e){
         successeurs.remove(e);
     }
 
+    /**
+     * @param e étape à chercher
+     * @return vrai si l'étape est dans les successeurs
+     */
     public boolean successeurExist(EtapeIG e){
         return successeurs.contains(e);
     }
 
+    /**
+     * @return le nombre de successeurs
+     */
     public int NbSuccesseur() {
         return successeurs.size();
     }
 
-    public boolean isActiviteRestreinte() {
+    /**
+     * @return vrai si l'activité est une activité restreinte et faux sinon
+     */
+    public boolean estUneActiviteRestreinte() {
         return false;
     }
 
+    /**
+     * @param index
+     * @return le successeur qui correspond à l'index
+     */
     public EtapeIG getSuccesseur(int index){
         return successeurs.get(index);
     }
 
-    public boolean isActivite(){
+    /**
+     * @return vrai si l'étape est une activité et faux sinon
+     */
+    public boolean estUneActivite(){
         return false;
     }
 
+    /**
+     * modifier le booléean de l'activité restreinte
+     * @param activiteRestreinte
+     */
     public void setActiviteRestreinte(boolean activiteRestreinte) {
         this.activiteRestreinte = activiteRestreinte;
     }
 
+    /**
+     * @return le temps de l'activité
+     */
     public int getTemps(){
         return 0;
     }
 
+    /**
+     * @return l'écart temps de l'activité
+     */
     public int getEcart(){
         return 0;
     }

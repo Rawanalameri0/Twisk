@@ -22,7 +22,7 @@ public class VueMondeIG extends Pane implements Observateur {
         this.monde=monde;
         VueEtapeIG vue;
         for (EtapeIG etape:monde){
-            if(!etape.isGuichet()) {
+            if(!etape.estUnGuichet()) {
                 vue = new VueActiviteIG(monde, etape);
             }
             else {
@@ -41,15 +41,13 @@ public class VueMondeIG extends Pane implements Observateur {
     }
 
     public void clientDeChaqueEtape(VueEtapeIG v,EtapeIG etape){
-        if (monde.getSimulate() != null){
-            if (monde.isStart()){
-                System.out.println(monde.clients());
-                for (Client cl: monde.clients()){
-                    if (monde.getCorrespondanceEtapes().get(etape).getNumero() == cl.getEtape().getNumero()){
-                        VueClientIG vue = new VueClientIG(monde,cl);
-                        System.out.println("x "+vue.getCenterX()+"y "+vue.getCenterY());
-                        v.setClient(vue);
-                    }
+        if (monde.isStart()){
+            System.out.println(monde.clients());
+            for (Client cl: monde.clients()){
+                if (monde.getCorrespondanceEtapes().get(etape).getNumero() == cl.getEtape().getNumero()){
+                    VueClientIG vue = new VueClientIG(monde,cl);
+                    System.out.println("x "+vue.getCenterX()+"y "+vue.getCenterY());
+                    v.setClient(vue);
                 }
             }
         }
@@ -68,9 +66,9 @@ public class VueMondeIG extends Pane implements Observateur {
                 }
                 VueEtapeIG vue;
                 for (EtapeIG etape:monde){
-                    if(!etape.isGuichet()) {
+                    if(!etape.estUnGuichet()) {
                         vue = new VueActiviteIG(monde, etape);
-                        clientDeChaqueEtape(vue,etape);
+                        //clientDeChaqueEtape(vue,etape);
                     }
                     else {
                         vue = new VueGuichetIG(monde, etape);
@@ -80,6 +78,13 @@ public class VueMondeIG extends Pane implements Observateur {
                     for (PointDeControleIG pt:etape){
                         VuePointDeControleIG vuept=new VuePointDeControleIG(monde,etape,pt);
                         this.getChildren().add(vuept);
+                    }
+                }
+                if (monde.isStart()){
+                    System.out.println(monde.clients());
+                    for (Client client: monde.clients()){
+                        VueClientIG clientIG = new VueClientIG(monde,client);
+                        this.getChildren().add(clientIG);
                     }
                 }
         };

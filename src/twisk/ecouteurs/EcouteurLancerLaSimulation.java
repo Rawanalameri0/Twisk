@@ -7,8 +7,6 @@ import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import twisk.exceptions.MondeException;
 import twisk.mondeIG.MondeIG;
-import twisk.outils.ThreadsManager;
-
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
@@ -22,7 +20,10 @@ public class EcouteurLancerLaSimulation implements EventHandler<ActionEvent> {
     @Override
     public void handle(ActionEvent actionEvent) {
         try {
+            monde.setStart(true);
             monde.simuler();
+            monde.setStart(false);
+            monde.notifierObservateurs();
         } catch (MondeException e) {
             Alert alert=new Alert(Alert.AlertType.ERROR);
             VBox dialogPaneContent=new VBox();

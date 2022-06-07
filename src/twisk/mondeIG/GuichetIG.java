@@ -5,16 +5,20 @@ public class GuichetIG extends EtapeIG{
     /**
      * La constructeur EtapeIG
      *
-     * @param nom
-     * @param idf
-     * @param larg
-     * @param haut
+     * @param nom nom de l'étape
+     * @param idf identifiant de l'étape
+     * @param larg largeur de l'étaoe
+     * @param haut hauteur de l'étape
      */
     public GuichetIG(String nom, String idf, int larg, int haut) {
         super(nom, idf, larg, haut);
         this.nbJetons= 3;
     }
 
+    /**
+     * modifie le nombre de jetons
+     * @param nbJetons
+     */
     @Override
     public void setNbJetons(int nbJetons){
         this.nbJetons=nbJetons;
@@ -25,8 +29,7 @@ public class GuichetIG extends EtapeIG{
         return nbJetons;
     }
     @Override
-    public boolean isGuichet(){
+    public boolean estUnGuichet(){
         return true;
     }
-
 }

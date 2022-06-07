@@ -13,9 +13,9 @@ public class PointDeControleIG {
     /**
      * La constructeur PointDeControleIG
      * @param identifiant
-     * @param etape
-     * @param x
-     * @param y
+     * @param etape du point de contrôle
+     * @param x coordonnée x
+     * @param y coordonnée y
      */
     public PointDeControleIG(String identifiant,EtapeIG etape,int x,int y){
         this.identifiant=identifiant;
@@ -46,16 +46,4 @@ public class PointDeControleIG {
         return etape;
     }
 
-   /*
-    public String getIdentifiant() {
-        return identifiant;
-    }*/
-/*
-    public boolean isSelect() {
-        return select;
-    }*/
-/*
-    public void setSelect(boolean select) {
-        this.select = select;
-    }*/
 }

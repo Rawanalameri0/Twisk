@@ -1,5 +1,6 @@
 package twisk.vues;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
@@ -12,7 +13,7 @@ import twisk.outils.TailleComposants;
 
 public class VueActiviteIG extends VueEtapeIG implements Observateur{
     private Label label;
-    private HBox hBox;
+    private HBox hBox,hBox1;
     /**
      * La constructeur VueActiviteIG
      * @param monde
@@ -23,18 +24,27 @@ public class VueActiviteIG extends VueEtapeIG implements Observateur{
         this.labl=new Label(this.etape.getnomEtape()+": "+ this.etape.getDelai());
         this.labl.setStyle("-fx-font-family: Calibri ;-fx-font-size:14 ; -fx-font-weight: bold" );
         hBox = new HBox();
+        hBox1= new HBox();
         this.setPadding(new Insets(2, 2, 2, 2));
-        hBox.setStyle("-fx-border-color: #006DF0; -fx-background-color: white;-fx-background-insets: 0 0 -1 0, 0, 1, 2; -fx-background-radius: 3px, 3px, 2px, 1px;");
+        hBox.setStyle("-fx-border-color: #006DF0; -fx-background-color: transparent;-fx-background-insets: 0 0 -1 0, 0, 1, 2; -fx-background-radius: 3px, 3px, 2px, 1px;");
         hBox.setPrefWidth(10);
         hBox.setPrefHeight(40);
+        hBox1.getChildren().addAll(labl);
         this.setPadding(new Insets(8,6,8,6));
         int x = this.etape.getPosX();
         int y = this.etape.getPosY();
         this.relocate(x,y);
         TailleComposants taille=TailleComposants.getInstance();
         this.setPrefSize(taille.getLargeurActivite(),taille.getHauteurActivite());
+        if(this.etape.isSelect()){
+            this.setStyle("-fx-border-color: #1968b8; -fx-background-color: #cebbf4;-fx-border-radius: 5; -fx-background-insets: 0 0 -1 0, 0, 1, 2; -fx-background-radius: 3px, 3px, 2px, 1px;");
+        }
+        else if(!etape.isEntree() && !etape.isSortie() && !etape.isSelect()){
+            this.setStyle("-fx-border-color: #0059FF; -fx-background-color:transparent ;-fx-border-radius: 5; -fx-background-insets: 0 0 -1 0, 0, 1, 2; -fx-background-radius: 3px, 3px, 2px, 1px;");
+        }
+        hBox1.setAlignment(Pos.CENTER);
         Entree_Sortie();
-
+        this.getChildren().addAll(hBox1,hBox);
     }
 
 
@@ -45,31 +55,19 @@ public class VueActiviteIG extends VueEtapeIG implements Observateur{
     }
     public void Entree_Sortie(){
         if( this.etape.isSortie()){
-            HBox h = new HBox();
             Circle c = new Circle(10);
             Image img= new Image(getClass().getResourceAsStream(("/images/sortie.png")),40,40,true,true);
             c.setFill(new ImagePattern(img));
-            h.getChildren().addAll(c,labl);
-            this.getChildren().addAll(h,hBox);
-
+            hBox1.getChildren().clear();
+            hBox1.getChildren().addAll(c,labl);
         }
         if(this.etape.isEntree() ){
-            HBox h = new HBox();
             Circle c = new Circle(10);
             Image img= new Image(getClass().getResourceAsStream(("/images/entrer.png")),40,40,true,true);
             c.setFill(new ImagePattern(img));
-            h.getChildren().addAll(c,labl);
-            this.getChildren().addAll(h,hBox);
+            hBox1.getChildren().clear();
+            hBox1.getChildren().addAll(c,labl);
         }
-        if(this.etape.isSelect()){
-            this.setStyle("-fx-border-color: #1968b8; -fx-background-color: #cebbf4;-fx-background-insets: 0 0 -1 0, 0, 1, 2; -fx-background-radius: 3px, 3px, 2px, 1px;");
-            this.getChildren().addAll(labl,hBox);
-        }
-        else if(!etape.isEntree() && !etape.isSortie() && !etape.isSelect()){
-            this.setStyle("-fx-border-color: #0059FF; -fx-background-color:white ;-fx-background-insets: 0 0 -1 0, 0, 1, 2; -fx-background-radius: 3px, 3px, 2px, 1px;");
-            this.getChildren().addAll(labl,hBox);
-        }
-
     }
 
     @Override

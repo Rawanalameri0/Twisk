@@ -129,6 +129,9 @@ public class KitC {
         sourceFile.close();
     }
 
+    /**
+     * @return le compteur des librairie
+     */
     public int getCompteur() {
         return compteur;
     }

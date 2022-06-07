@@ -125,15 +125,23 @@ public abstract class Etape implements Iterable<Etape>{
         return nom;
     }
 
-
+    /**
+     * @return le nom de l'étape
+     */
     public String NameEtape(){
         return nom;
     }
 
+    /**
+     * reset le compteur
+     */
     public void reset(){
         FabriqueNumero.getInstance().reset();
     }
 
+    /**
+     * @return le delai de l'activité
+     */
     public String getDelai(){
         return  null;
     }
