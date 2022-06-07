@@ -292,4 +292,18 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
     public int getEcart(){
         return 0;
     }
+
+    /**
+     * @return la hauteur de l'étapeIG
+     */
+    public int getHauteur() {
+        return hauteur;
+    }
+
+    /**
+     * @return la largeur de l'étapeIG
+     */
+    public int getLargeur() {
+        return largeur;
+    }
 }

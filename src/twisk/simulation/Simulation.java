@@ -6,12 +6,13 @@ import twisk.outils.KitC;
 import twisk.outils.ThreadsManager;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Classe Simulation
  * @author IKHRICHI SOUMAYA AL-AMERI RAWAN
  */
-public class Simulation extends SujetObserve {
+public class Simulation extends SujetObserve implements Iterable<Client> {
     private KitC kitc;
     private int nbClients;
     private boolean start;
@@ -48,41 +49,44 @@ public class Simulation extends SujetObserve {
             System.out.printf("Les clients: ");
             for (int i = 0; i < nbClients; i++) {
                 System.out.printf(" " + tabClients[i] + " ");
-                gestClients.setClients(tabClients[i]);
-                notifierObservateurs();
             }
+            gestClients.setClients(tabClients);
+            notifierObservateurs();
             System.out.println("\n \n");
             int[] EmplacementClient;
             while (start) {
                 EmplacementClient = ou_sont_les_clients(nbEtapes, nbClients);
-                notifierObservateurs();
                 for (int nbClient = 0, etape = 0; etape < nbEtapes; ++nbClient, ++etape) {
                     nbClientEtape = EmplacementClient[nbClient];
                     System.out.printf("\nétape " + etape + " (" + monde.getNomDeEtape(etape) + ") " + nbClientEtape + " clients :");
                     for (int c = 1; c <= nbClientEtape; c++) {
                         System.out.printf(" " + EmplacementClient[nbClient + c] + " ");
                         gestClients.allerA(EmplacementClient[nbClient + c],monde.getEtape(etape),c);
-                        notifierObservateurs();
                     }
+                    notifierObservateurs();
                     nbClient += nbClients;
                     if (etape == 1) {
                         if (nbClientEtape == nbClients) {
                             start = false;
-                            notifierObservateurs();
-                        }
+                         }
                     }
                 }
                 System.out.println("");
                 Thread.sleep(2000);
+                notifierObservateurs();
             }
             start = false;
-            notifierObservateurs();
+            for (Client c: gestClients)
+                kitc.killProcessus(c.getNumeroClient());
             gestClients.nettoyer();
             System.out.println("");
             monde.reset();
             nettoyage();
+            notifierObservateurs();
         }catch (InterruptedException e){
-            ThreadsManager.getInstance().detruireTout();
+            gestClients.nettoyer();
+            monde.reset();
+            nettoyage();
         }
     }
 
@@ -123,14 +127,6 @@ public class Simulation extends SujetObserve {
     }
 
     /**
-     * @return la liste des clients
-     */
-    public ArrayList<Client> getGestClients() {
-        System.out.println(gestClients.getClients());
-        return gestClients.getClients();
-    }
-
-    /**
      * @return le nombre de clients
      */
     public int getNbClients() {
@@ -138,10 +134,14 @@ public class Simulation extends SujetObserve {
     }
 
     /**
-     * @return si la compilation a commencé
+     * @return l'iterator des clients
      */
-    public boolean estDebStimulation() {
-        return start;
+    @Override
+    public Iterator<Client> iterator() {
+        return gestClients.iterator();
     }
 
+    public GestionnairesClients getGestClients() {
+        return gestClients;
+    }
 }

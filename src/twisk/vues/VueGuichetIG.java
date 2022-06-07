@@ -23,6 +23,7 @@ public class VueGuichetIG extends VueEtapeIG implements Observateur{
     public VueGuichetIG(MondeIG monde, EtapeIG etape) {
         super(monde, etape);
         this.labl =new Label(this.etape.getnomEtape()+":" +this.etape.getJetons()+" jetons");
+        this.labl.setStyle("-fx-font-family: Calibri ;-fx-font-size:14 ; -fx-font-weight: bold" );
         this.setPadding(new Insets(6, 6, 6, 2));
         HBox hBox=new HBox();
         hBox1=new HBox();
@@ -43,14 +44,14 @@ public class VueGuichetIG extends VueEtapeIG implements Observateur{
         this.setPrefSize(taille.getLargeurGuichet(),taille.getHauteurGuichet());
         if(this.etape.isEntree() ){
             Circle c = new Circle(10);
-            Image img= new Image(getClass().getResourceAsStream(("/images/entrer.png")),40,40,true,true);
+            Image img= new Image(getClass().getResourceAsStream(("/images/entrer.png")),20,20,true,true);
             c.setFill(new ImagePattern(img));
             hBox1.getChildren().clear();
             hBox1.getChildren().addAll(c,labl);
         }
         if( this.etape.isSortie()){
             Circle c = new Circle(10);
-            Image img= new Image(getClass().getResourceAsStream(("/images/sortie.png")),40,40,true,true);
+            Image img= new Image(getClass().getResourceAsStream(("/images/sortie.png")),20,20,true,true);
             c.setFill(new ImagePattern(img));
             hBox1.getChildren().clear();
             hBox1.getChildren().addAll(c,labl);
@@ -58,8 +59,8 @@ public class VueGuichetIG extends VueEtapeIG implements Observateur{
         if (this.etape.isEntree() && this.etape.isSortie()){
             Circle c = new Circle(7);
             Circle c1 = new Circle(7);
-            Image img= new Image(getClass().getResourceAsStream(("/images/sortie.png")),40,40,true,true);
-            Image img1= new Image(getClass().getResourceAsStream(("/images/entrer.png")),40,40,true,true);
+            Image img= new Image(getClass().getResourceAsStream(("/images/sortie.png")),20,20,true,true);
+            Image img1= new Image(getClass().getResourceAsStream(("/images/entrer.png")),20,20,true,true);
             c.setFill(new ImagePattern(img));
             c1.setFill(new ImagePattern(img1));
             hBox1.getChildren().clear();

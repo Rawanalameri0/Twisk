@@ -135,4 +135,26 @@ public class KitC {
     public int getCompteur() {
         return compteur;
     }
+
+    public void killProcessus(int numero){
+        String commande = "kill -9 " + numero;
+        Runtime runtime = Runtime.getRuntime();
+        try {
+            Process p = runtime.exec(commande);
+            p.waitFor();
+            // récupération des messages sur la sortie standard et la sortie d’erreur de la commande exécutée
+            // à reprendre éventuellement et à adapter à votre code
+            BufferedReader output = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            BufferedReader error = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+            String ligne;
+            while ((ligne = output.readLine()) != null) {
+                System.out.println(ligne);
+            }
+            while ((ligne = error.readLine()) != null) {
+                System.out.println(ligne);
+            }
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

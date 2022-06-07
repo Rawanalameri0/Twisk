@@ -23,7 +23,6 @@ public class EcouteurLancerLaSimulation implements EventHandler<ActionEvent> {
             monde.setStart(true);
             monde.simuler();
             monde.setStart(false);
-            monde.notifierObservateurs();
         } catch (MondeException e) {
             Alert alert=new Alert(Alert.AlertType.ERROR);
             VBox dialogPaneContent=new VBox();

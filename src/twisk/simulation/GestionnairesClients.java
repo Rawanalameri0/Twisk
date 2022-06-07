@@ -73,4 +73,5 @@ public class GestionnairesClients implements Iterable<Client>{
     public ArrayList<Client> getClients() {
         return clients;
     }
+
 }

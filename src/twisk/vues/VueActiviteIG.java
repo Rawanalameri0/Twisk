@@ -26,7 +26,7 @@ public class VueActiviteIG extends VueEtapeIG implements Observateur{
         hBox = new HBox();
         hBox1= new HBox();
         this.setPadding(new Insets(2, 2, 2, 2));
-        hBox.setStyle("-fx-border-color: #006DF0; -fx-background-color: transparent;-fx-background-insets: 0 0 -1 0, 0, 1, 2; -fx-background-radius: 3px, 3px, 2px, 1px;");
+        hBox.setStyle("-fx-border-color: #006DF0; -fx-background-color: white;-fx-background-insets: 0 0 -1 0, 0, 1, 2; -fx-background-radius: 3px, 3px, 2px, 1px;");
         hBox.setPrefWidth(10);
         hBox.setPrefHeight(40);
         hBox1.getChildren().addAll(labl);
@@ -83,5 +83,13 @@ public class VueActiviteIG extends VueEtapeIG implements Observateur{
     @Override
     public HBox getHBox() {
         return hBox;
+    }
+
+    @Override
+    public void setClient(VueClientIG vue){
+        this.getChildren().clear();
+        hBox.getChildren().add(vue);
+        this.getChildren().addAll(hBox1,hBox);
+        monde.notifierObservateurs();
     }
 }

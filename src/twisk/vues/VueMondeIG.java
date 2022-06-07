@@ -12,7 +12,7 @@ import java.util.Iterator;
  */
 public class VueMondeIG extends Pane implements Observateur {
     private MondeIG monde;
-    private SujetObserve observe;
+    private int pos;
 
     /**
      * La constructeur Monde
@@ -20,6 +20,7 @@ public class VueMondeIG extends Pane implements Observateur {
      */
     public VueMondeIG(MondeIG monde){
         this.monde=monde;
+        pos =  10;
         VueEtapeIG vue;
         for (EtapeIG etape:monde){
             if(!etape.estUnGuichet()) {
@@ -41,13 +42,20 @@ public class VueMondeIG extends Pane implements Observateur {
     }
 
     public void clientDeChaqueEtape(VueEtapeIG v,EtapeIG etape){
-        if (monde.isStart()){
-            //System.out.println(monde.clients());
-            for (Client cl: monde.clients()){
-                if (monde.getCorrespondanceEtapes().get(etape).equals(cl.getEtape())){
-                    VueClientIG vue = new VueClientIG(monde,cl);
-                    System.out.println("x "+vue.getCenterX()+"y "+vue.getCenterY());
-                    v.setClient(vue);
+        if (monde.getSimulate() != null) {
+            if (monde.isStart()) {
+                Iterator<Client> clientIterator = monde.clients();
+                if (clientIterator == null)
+                    return;
+                while (clientIterator.hasNext()) {
+                    Client client = clientIterator.next();
+
+                    if (monde.getCorrespondanceEtapes().get(etape).equals(client.getEtape())) {
+                        VueClientIG vue = new VueClientIG(monde, client);
+                        vue.setPos(pos);
+                        v.setClient(vue);
+                        pos+=10;
+                    }
                 }
             }
         }
@@ -56,39 +64,45 @@ public class VueMondeIG extends Pane implements Observateur {
 
     @Override
     public void reagir() {
-        Runnable command = () -> {
-                this.getChildren().clear();
+        Pane vueMonde = this;
+        Runnable command = new Runnable() {
+            @Override
+            public void run() {
+                vueMonde.getChildren().clear();
                 Iterator<ArcIG> it = monde.iteratorarc();
-                while(it.hasNext()){
+                while (it.hasNext()) {
                     ArcIG arcIG = it.next();
-                    VueArcIG vuearcIG = new VueArcIG(monde,arcIG);
-                    this.getChildren().add(vuearcIG);
+                    VueArcIG vuearcIG = new VueArcIG(monde, arcIG);
+                    vueMonde.getChildren().add(vuearcIG);
                 }
                 VueEtapeIG vue;
-                for (EtapeIG etape:monde){
-                    if(!etape.estUnGuichet()) {
+                for (EtapeIG etape : monde) {
+                    if (!etape.estUnGuichet()) {
                         vue = new VueActiviteIG(monde, etape);
-                        clientDeChaqueEtape(vue,etape);
-                    }
-                    else {
+                        //clientDeChaqueEtape(vue,etape);
+                    } else {
                         vue = new VueGuichetIG(monde, etape);
-                        //clientDeChaqueEtape(vue.hBox,etape);
                     }
-                    this.getChildren().add(vue);
-                    for (PointDeControleIG pt:etape){
-                        VuePointDeControleIG vuept=new VuePointDeControleIG(monde,etape,pt);
-                        this.getChildren().add(vuept);
-                    }
-                }
-                /*
-                if (monde.isStart()){
-                    System.out.println(monde.clients());
-                    for (Client client: monde.clients()){
-                        VueClientIG clientIG = new VueClientIG(monde,client);
-                        this.getChildren().add(clientIG);
+                    vueMonde.getChildren().add(vue);
+                    for (PointDeControleIG pt : etape) {
+                        VuePointDeControleIG vuept = new VuePointDeControleIG(monde, etape, pt);
+                        vueMonde.getChildren().add(vuept);
                     }
                 }
-                 */
+
+                if (monde.isStart()) {
+                    Iterator<Client> clientIterator = monde.clients();
+                    if (clientIterator == null)
+                        return;
+                    while (clientIterator.hasNext()) {
+                        Client client = clientIterator.next();
+                        VueClientIG clientIG = new VueClientIG(monde, client);
+                        clientIG.setPos(pos);
+                        vueMonde.getChildren().add(clientIG);
+                        pos += 10;
+                    }
+                }
+            }
         };
         if (Platform.isFxApplicationThread()){
             command.run();

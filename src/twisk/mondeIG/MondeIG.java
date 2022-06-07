@@ -14,16 +14,16 @@ import java.util.*;
 /**
  * Classe MondeIG
  */
-public class MondeIG extends SujetObserve implements Iterable<EtapeIG> , Observateur {
+public class MondeIG extends SujetObserve implements Iterable<EtapeIG> ,Observateur {
     private HashMap<String,EtapeIG> Hetapes;
     private int i=1,nbClients;
     private ArrayList<ArcIG> arcs;
-    private ArrayList<Client> clients;
     private PointDeControleIG ptchoisi;
     private ArrayList<EtapeIG> etapesSelectionee,entrees,sorties;
     private CorrespondanceEtapes correspondanceEtapes;
-    private transient Object simulate ;
-    private transient Class<?> simulation;
+    private GestionnairesClients gestClients;
+    private Object simulate ;
+    private Class<?> simulation;
     private boolean start;
     /**
      * la constructeur MondeIG
@@ -98,22 +98,25 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> , Observa
     public void simuler() throws MondeException{
         verifierMondeIG();
         Monde monde=creerMonde();
-        ClassLoaderPerso classloader = new ClassLoaderPerso(MondeIG.class.getClassLoader());
+        ClassLoaderPerso classloader = new ClassLoaderPerso(this.getClass().getClassLoader());
         try {
             simulation = classloader.loadClass("twisk.simulation.Simulation");
             simulate= simulation.getDeclaredConstructor().newInstance();
             Method setnbclients = simulation.getDeclaredMethod("setNbClients", int.class);
             setnbclients.invoke(simulate,getNbClients());
-            Method ajObserv = simulation.getDeclaredMethod("ajouterObservateur",twisk.vues.Observateur.class);
-            ajObserv.invoke(simulate,this);
+            Method gestClient = simulation.getDeclaredMethod("getGestClients");
+            gestClients = (GestionnairesClients) gestClient.invoke(simulate);
+            notifierObservateurs();
             Method simuler = simulation.getDeclaredMethod("simuler",twisk.monde.Monde.class);
+            Method ajObserv = simulation.getMethod("ajouterObservateur",Observateur.class);
+            ajObserv.invoke(simulate,this);
             Task<Void> task = new Task<Void>() {
                 @Override
                 protected Void call() throws Exception {
                     try {
                         setStart(true);
-                        simuler.invoke(simulate,monde);
                         notifierObservateurs();
+                        simuler.invoke(simulate,monde);
                         Thread.sleep(20);
                         setStart(false);
                         notifierObservateurs();
@@ -128,7 +131,6 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> , Observa
                  NoSuchMethodException e) {
            e.printStackTrace();
         }
-
     }
 
     /**
@@ -172,17 +174,21 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> , Observa
      */
     public void ajouter (PointDeControleIG pt1,PointDeControleIG pt2)throws TwiskException {
         if(pt1.getEtape().getIdentifiant().equals(pt2.getEtape().getIdentifiant())){
+            ptchoisi = null;
             throw new TwiskExceptionEtapeIdentique("Les points de memes etapes; impossible de créer l'arc");
         }
         if (pt1.getEtape().successeurExist(pt2.getEtape()) || pt2.getEtape().successeurExist(pt1.getEtape())){
-               throw new TwiskExceptionArcTrouvee("Un arc existe; impossible d'ajouter d'un arc");
+            ptchoisi = null;
+            throw new TwiskExceptionArcTrouvee("Un arc existe; impossible d'ajouter d'un arc");
         }
         if(pt1.getX()==pt2.getX() && pt1.getY()==pt2.getY()){
+            ptchoisi = null;
             throw new TwiskExceptionEtapeIdentique("erreur");
         }
-        if (pt1.getEtape().estUnGuichet() && pt2.getEtape().estUnGuichet())
+        if (pt1.getEtape().estUnGuichet() && pt2.getEtape().estUnGuichet()) {
+            ptchoisi = null;
             throw new TwiskException("Un arc ne peut pas être créer entre deux guichet");
-
+        }
         this.arcs.add(new ArcIG(pt1,pt2));
         notifierObservateurs();
     }
@@ -256,8 +262,10 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> , Observa
     /**
      * ajouter les sorties
      */
-    public void ajoutsortie(){
+    public void ajoutsortie() throws TwiskException {
         for (EtapeIG etape : etapesSelectionee){
+            if (etape.estUnGuichet())
+                throw new TwiskException("Le guichet ne peu pas être une sortie");
             if(!sorties.contains(etape)){
                 etape.setSortie(true);
                 etape.setSelect(false);
@@ -339,15 +347,8 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> , Observa
     /**
      * @return la liste des clients
      */
-    public ArrayList<Client> clients(){
-        Method gestClient;
-        try {
-            gestClient = simulation.getDeclaredMethod("getGestClients");
-            ArrayList<Client> LesClients = (ArrayList<Client>) gestClient.invoke(simulate);
-            return  Objects.requireNonNull(LesClients);
-        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
+    public Iterator<Client> clients(){
+        return  gestClients.iterator();
     }
 
     /**
@@ -393,5 +394,13 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> , Observa
      */
     public CorrespondanceEtapes getCorrespondanceEtapes() {
         return correspondanceEtapes;
+    }
+
+    /**
+     * modifier le nombre de clients
+     * @param nbClients
+     */
+    public void setNbClients(int nbClients) {
+        this.nbClients = nbClients;
     }
 }
