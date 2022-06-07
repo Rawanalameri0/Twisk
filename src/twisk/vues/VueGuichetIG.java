@@ -55,11 +55,21 @@ public class VueGuichetIG extends VueEtapeIG implements Observateur{
             hBox1.getChildren().clear();
             hBox1.getChildren().addAll(c,labl);
         }
+        if (this.etape.isEntree() && this.etape.isSortie()){
+            Circle c = new Circle(7);
+            Circle c1 = new Circle(7);
+            Image img= new Image(getClass().getResourceAsStream(("/images/sortie.png")),40,40,true,true);
+            Image img1= new Image(getClass().getResourceAsStream(("/images/entrer.png")),40,40,true,true);
+            c.setFill(new ImagePattern(img));
+            c1.setFill(new ImagePattern(img1));
+            hBox1.getChildren().clear();
+            hBox1.getChildren().addAll(c,c1,labl);
+        }
         if(this.etape.isSelect()){
             this.setStyle("-fx-border-color: #1968b8; -fx-background-color: #cebbf4;-fx-background-insets: 0 0 -1 0, 0, 1, 2; -fx-border-radius: 5; -fx-background-radius: 3px, 3px, 2px, 1px;");
         }
         else if(!etape.isEntree() && !etape.isSortie() && !etape.isSelect()){
-            this.setStyle("-fx-border-color: #0059FF; -fx-background-color:white ;-fx-background-insets: 0 0 -1 0, 0, 1, 2; -fx-border-radius: 5; -fx-background-radius: 3px, 3px, 2px, 1px;");
+            this.setStyle("-fx-border-color: #0059FF; -fx-background-color: transparent ;-fx-background-insets: 0 0 -1 0, 0, 1, 2; -fx-border-radius: 5; -fx-background-radius: 3px, 3px, 2px, 1px;");
         }
         this.getChildren().addAll(hBox1,hBox);
     }

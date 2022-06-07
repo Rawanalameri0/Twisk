@@ -113,9 +113,10 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> , Observa
                     try {
                         setStart(true);
                         simuler.invoke(simulate,monde);
+                        notifierObservateurs();
                         Thread.sleep(20);
                         setStart(false);
-                        //notifierObservateurs();
+                        notifierObservateurs();
                     }catch (InterruptedException e){
                         setStart(false);
                     }
@@ -127,6 +128,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> , Observa
                  NoSuchMethodException e) {
            e.printStackTrace();
         }
+
     }
 
     /**
@@ -338,14 +340,14 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> , Observa
      * @return la liste des clients
      */
     public ArrayList<Client> clients(){
-        Method gestClient = null;
+        Method gestClient;
         try {
             gestClient = simulation.getDeclaredMethod("getGestClients");
-            clients = (ArrayList<Client>) gestClient.invoke(simulate);
+            ArrayList<Client> LesClients = (ArrayList<Client>) gestClient.invoke(simulate);
+            return  Objects.requireNonNull(LesClients);
         } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
-        return  Objects.requireNonNull(clients);
     }
 
     /**

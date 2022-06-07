@@ -73,11 +73,7 @@ public class VueOutils extends TilePane implements Observateur {
                     Image image3 = new Image(getClass().getResourceAsStream(("/images/pause.png")), 40, 40, true, true);
                     ImageView icone3 = new ImageView(image3);
                     simuler.setGraphic(icone3);
-                    simuler.setOnAction(actionEvent -> {
-                        ThreadsManager.getInstance().detruireTout();
-                        monde.setStart(false);
-                        monde.notifierObservateurs();
-                    });
+                    simuler.setOnAction(new EcouteurArreterSimulation(monde));
                 }else {
                     ajoutGuichet.setDisable(false);
                     ajoutActivite.setDisable(false);

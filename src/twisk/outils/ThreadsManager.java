@@ -28,9 +28,9 @@ public class ThreadsManager {
      */
     public void lancer(Task task){
         Thread thread = new Thread(task);
-        //thread.start();
+        thread.start();
         threads.add(thread);
-        threads.forEach(Thread::start);
+        //threads.forEach(Thread::start);
     }
 
     /**

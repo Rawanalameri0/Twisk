@@ -42,9 +42,9 @@ public class VueMondeIG extends Pane implements Observateur {
 
     public void clientDeChaqueEtape(VueEtapeIG v,EtapeIG etape){
         if (monde.isStart()){
-            System.out.println(monde.clients());
+            //System.out.println(monde.clients());
             for (Client cl: monde.clients()){
-                if (monde.getCorrespondanceEtapes().get(etape).getNumero() == cl.getEtape().getNumero()){
+                if (monde.getCorrespondanceEtapes().get(etape).equals(cl.getEtape())){
                     VueClientIG vue = new VueClientIG(monde,cl);
                     System.out.println("x "+vue.getCenterX()+"y "+vue.getCenterY());
                     v.setClient(vue);
@@ -68,7 +68,7 @@ public class VueMondeIG extends Pane implements Observateur {
                 for (EtapeIG etape:monde){
                     if(!etape.estUnGuichet()) {
                         vue = new VueActiviteIG(monde, etape);
-                        //clientDeChaqueEtape(vue,etape);
+                        clientDeChaqueEtape(vue,etape);
                     }
                     else {
                         vue = new VueGuichetIG(monde, etape);
@@ -80,6 +80,7 @@ public class VueMondeIG extends Pane implements Observateur {
                         this.getChildren().add(vuept);
                     }
                 }
+                /*
                 if (monde.isStart()){
                     System.out.println(monde.clients());
                     for (Client client: monde.clients()){
@@ -87,6 +88,7 @@ public class VueMondeIG extends Pane implements Observateur {
                         this.getChildren().add(clientIG);
                     }
                 }
+                 */
         };
         if (Platform.isFxApplicationThread()){
             command.run();

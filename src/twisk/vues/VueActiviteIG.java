@@ -56,17 +56,27 @@ public class VueActiviteIG extends VueEtapeIG implements Observateur{
     public void Entree_Sortie(){
         if( this.etape.isSortie()){
             Circle c = new Circle(10);
-            Image img= new Image(getClass().getResourceAsStream(("/images/sortie.png")),40,40,true,true);
+            Image img= new Image(getClass().getResourceAsStream(("/images/sortie.png")),20,20,true,true);
             c.setFill(new ImagePattern(img));
             hBox1.getChildren().clear();
             hBox1.getChildren().addAll(c,labl);
         }
         if(this.etape.isEntree() ){
             Circle c = new Circle(10);
-            Image img= new Image(getClass().getResourceAsStream(("/images/entrer.png")),40,40,true,true);
+            Image img= new Image(getClass().getResourceAsStream(("/images/entrer.png")),20,20,true,true);
             c.setFill(new ImagePattern(img));
             hBox1.getChildren().clear();
             hBox1.getChildren().addAll(c,labl);
+        }
+        if (this.etape.isEntree() && this.etape.isSortie()){
+            Circle c = new Circle(7);
+            Circle c1 = new Circle(7);
+            Image img= new Image(getClass().getResourceAsStream(("/images/sortie.png")),40,40,true,true);
+            Image img1= new Image(getClass().getResourceAsStream(("/images/entrer.png")),40,40,true,true);
+            c.setFill(new ImagePattern(img));
+            c1.setFill(new ImagePattern(img1));
+            hBox1.getChildren().clear();
+            hBox1.getChildren().addAll(c,c1,labl);
         }
     }
 
